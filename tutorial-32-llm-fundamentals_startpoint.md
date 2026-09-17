@@ -40,3 +40,9 @@ Run a tokenizer (e.g., `tiktoken` or a Hugging Face tokenizer) on a few strings 
 - The GPT-3 paper ("Language Models are Few-Shot Learners") for in-context learning.
 - The InstructGPT / RLHF paper for how post-training shapes assistants.
 - A hands-on intro such as Karpathy's "Let's build GPT" or his tokenizer ("minbpe") walkthrough.
+
+## Primary Author Inputs
+- The above is okay but not exactly how I want to brief the tutorial, so use it for ideas but it is not the end-all-be-all
+- We should go (What) is a transformer at a high-level, (Why) it is important for agentic systems, (How) transformers work, (conclude) with further thought-provoking current LLM developments at high-level
+- The meat should be in the (How) portion.  I want to start with the encoder-decoder variant first introduced by "Attention Is All You Need", explain how for most LLMs, this moved to a decoder-only variant, at then layer-by-layer throught the architecture, what happens to data in every layer and why
+- As a visual learner, I want the document and presentation to be figure heavy.  A good starting point is a decoder-only variant of the transformer architecture figure from "Attention Is All You Need"
