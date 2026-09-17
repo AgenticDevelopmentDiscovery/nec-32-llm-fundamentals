@@ -1,87 +1,146 @@
 # Topic
 
-<!-- THE PROPOSAL. Never rendered into the document, the slides, or the site —
-     but every reviewer reads it, and the panel judges the tutorial against what
-     you promise here. Write it before you write a section.
-
-     This is the document-level counterpart to a section's `.concepts.md`: the
-     same job of holding intent separately from what ships, one level up.
-
-     Keep it short. A page is plenty. Delete these comments and the guidance
-     blockquotes as you fill it in. -->
-
 ## In one sentence
 
-> The topic, named and bounded, in a single sentence a stranger could repeat
-> back. If it takes two, the topic is probably two topics.
-
-Replace this line.
+The Transformer architecture that turns a sequence of tokens into the
+next-token predictions an LLM samples from, and that therefore underlies every
+capability and failure mode of an agent built on one.
 
 ## What it is
 
-> A paragraph of plain description. What is the tool, technique, or notion —
-> defined by what it does, not by what it is built from or why it is good.
->
-> This seeds `01-context`. If you cannot write it without arguing for the topic,
-> the argument is doing work the definition should be doing.
-
-Replace this paragraph.
+A large language model is a neural network — almost always a Transformer —
+trained to predict the next token in a sequence. Text is broken into tokens by
+a tokenizer, the model consumes a sequence of token ids and outputs a
+probability distribution over the next token, and generation proceeds
+autoregressively: sample a token, append it, feed the longer sequence back in,
+repeat. There is no database lookup and no symbolic reasoning engine
+underneath — just a large, learned function mapping token sequences to
+next-token probabilities, evaluated one layer at a time.
 
 ## Why it belongs in this course
 
-> The case for spending a reader's time on it: what it lets an agentic system do
-> that is hard or impossible otherwise, and what goes wrong without it.
->
-> This seeds `02-motivation`. Be specific to agentic development — if the reason
-> would read the same for any programming topic, keep going.
-
-Replace this paragraph.
+Every capability and every failure mode an agent exhibits traces back to this
+mechanism. Hallucination is the model confidently sampling plausible-but-wrong
+tokens because it optimizes likelihood, not truth. The context window is a
+hard token budget that motivates the entire context-engineering spine —
+retrieval and memory exist to put the right tokens in front of a model whose
+weights are frozen at inference. Temperature and sampling control how
+deterministic an agent is, which matters when an eval harness needs
+reproducible output. A student who has walked through the architecture
+layer-by-layer can reason about why these levers work, instead of treating the
+model as an opaque box to be prompted by trial and error.
 
 ## What the reader will be able to do
 
-> The capability the tutorial delivers, as a short list of actions the reader can
-> take afterwards that they could not take before. Not topics covered — things
-> done.
->
-> This is the promise `04-conclusion` has to keep, and the standard the panel
-> holds the whole tutorial to. Vague entries here buy vague review, the same way
-> a vague `audience` does.
-
-- (capability)
-- (capability)
+- Explain, at a high level, what a transformer is and why LLMs are built on it.
+- Trace a token sequence through a decoder-only transformer layer by layer —
+  embedding, positional information, self-attention, feed-forward, residuals
+  and normalization — and describe what each stage does to the data.
+- Explain how the decoder-only architecture used by most current LLMs relates
+  to the original encoder-decoder architecture introduced in "Attention Is All
+  You Need."
+- Connect architectural facts (fixed context window, frozen weights at
+  inference, stochastic sampling) to the practical behaviors and failure modes
+  an agent built on an LLM will exhibit.
 
 ## Scope
 
-> What the tutorial covers and, explicitly, what it does not. Adjacent topics a
-> reader might expect and will not get belong here with one clause of reason —
-> naming them stops a reviewer reporting them as gaps and stops the team drifting
-> back into them.
-
 **In scope**
 
-- (in)
+- What a transformer is, at a high level (WHAT).
+- Why understanding the architecture matters for building and debugging
+  agentic systems (WHY) — context window, frozen weights, hallucination,
+  sampling/determinism.
+- How a transformer processes data (HOW, the meat of the tutorial):
+  - The original encoder-decoder architecture from "Attention Is All You Need."
+  - Why most current LLMs moved to a decoder-only variant.
+  - A layer-by-layer walkthrough of the decoder-only architecture: what
+    happens to the data at each stage, and why.
+- A thought-provoking, high-level survey of current LLM developments to close
+  on (CONCLUDE).
+- Figures at every stage the architecture can be drawn — this is a visual
+  tutorial by design. Figures are reused and attributed from the primary
+  sources rather than redrawn from scratch: the encoder-decoder and
+  decoder-only architecture figures from "Attention Is All You Need," and
+  supporting figures from the GPT paper line (e.g. "Language Models are
+  Few-Shot Learners") where they illustrate a point the source paper doesn't
+  — each figure carries a citation back to its source paper.
+- A short hands-on demo — see Shape below for the current best candidate.
 
-**Out of scope**
+**Out of scope** — each item below is covered by a different tutorial
+elsewhere in the course, so `01-context` names it in passing (one line) as a
+pointer rather than silence, without pulling it into this tutorial's scope.
 
-- (out, and why)
+- Derivations of the attention math or training algorithms (backprop,
+  optimizer internals) — the tutorial explains what each layer does to the
+  data, not how the weights that do it were learned; training mechanics belong
+  to whichever tutorial covers model training.
+- Tokenizer internals (BPE mechanics) beyond what is needed to say "text
+  becomes token ids" — tokenization is context for the walkthrough here, not
+  the subject of it; covered in depth elsewhere.
+- Fine-tuning, RLHF mechanics, and prompt-engineering technique — covered by
+  other tutorials in the course; this one is about the architecture itself.
 
 ## Shape
 
-> How the four sections divide the material, if you already know. Which one
-> carries the weight, what the worked example in `03-content` will be, whether
-> the arc needs changing for this subject.
->
-> Leave it thin on the first pass. It is here so the reason for a structural
-> choice is written down before the rounds start arguing about it.
+- `01-context` (WHAT): a transformer at a high level — next-token prediction,
+  autoregressive generation, the shape of the problem it solves. Closes with a
+  one-line "not covered here, see..." pointer for each out-of-scope item
+  (training mechanics, tokenizer internals, fine-tuning/RLHF/prompting), so
+  the reader knows the omission is deliberate and where to find it, without
+  turning `01-context` into a syllabus.
+- `02-motivation` (WHY): why this matters for agentic development — ties
+  architecture facts to context-engineering, hallucination, and reproducible
+  evals, so the reader has a reason to sit through the architecture walkthrough
+  that follows.
+- `03-content` (HOW): the tutorial's center of mass, per the primary author's
+  brief. Opens with the original encoder-decoder architecture from "Attention
+  Is All You Need" (figure reused, attributed), motivates the shift to
+  decoder-only, then walks the decoder-only stack layer by layer using the
+  decoder-only architecture figure as the anchor visual — reused/annotated
+  across multiple `##` units as the walkthrough moves through it, each carrying
+  its source citation. Closes with the hands-on demo (below), which needs the
+  layer walkthrough already done to land. This section will need more than the
+  shipped four `##` units once broken up for slides — each stage of the layer
+  walkthrough, and the demo itself, are plausibly their own slides.
+- `04-conclusion` (WHAT ELSE): what the reader can now do, plus a
+  thought-provoking, high-level look at current LLM developments (e.g. scaling,
+  long-context, mixture-of-experts, multimodality, agentic tool use) as
+  further reading / food for thought rather than material to be tested on.
 
-- (note)
+## Demo
+
+A short hands-on demo is in scope, placed at the end of `03-content` once the
+architecture walkthrough has established what a forward pass through the
+layers actually does. Best current candidate, in keeping with the
+architecture-first framing (rather than the source `.md`'s tokenizer +
+temperature-sampling demo, which is more about I/O than mechanism): load a
+small open-weights decoder-only model and print/visualize the tensor shape
+(and, if feasible, an attention-map snapshot) after each layer for a short
+input, so the reader watches the layer-by-layer walkthrough happen on real
+data instead of taking it on faith. Sampling temperature can still get a
+one-line callback here since it's already covered under Why (Spine 1 /
+capstone connection), but it is not the demo's focus.
 
 ## Open questions
 
-> What the team has not settled: an unresolved framing, an example you are not
-> sure earns its place, a claim you cannot yet support.
->
-> Naming these is cheap now and expensive in review. The panel reads them and
-> will not report a known unknown as a discovery.
-
-- (question)
+- How much of the original tokenization / sampling-controls / failure-modes
+  material from the source `.md` should be folded into `02-motivation` versus
+  handled as a one-line out-of-scope pointer in `01-context`? The primary
+  author's brief supersedes the source document's "Key ideas to cover" list
+  but does not explicitly say what to do with tokenization and sampling —
+  they are referenced in the Why section above but not committed to a `##`
+  unit.
+- Does the demo above (layer-by-layer tensor/attention inspection on a real
+  small model) match what the primary author has in mind, or did they intend
+  something closer to the original tokenizer/temperature demo, just moved
+  later in the tutorial? This needs the author's confirmation before
+  `03-content` is drafted, since it determines what code/model dependencies
+  the tutorial needs.
+- Which specific figures from "Attention Is All You Need" and the GPT paper
+  line will be used, and do they need to be redrawn/simplified for slide
+  legibility rather than reused as-is (the slide constraint in CLAUDE.md means
+  a dense original figure may not survive `--slide-level=2` without editing)?
+- Does "further thought-provoking current LLM developments" in the conclusion
+  need to be scoped to a fixed list of topics, or is it left open for whoever
+  writes `04-conclusion` to pick at the time?
