@@ -49,6 +49,15 @@ understanding pays off most.
 - Tokenization, sampling controls, and failure-mode material from the source
   `.md` stay as brief mentions here (no dedicated `##` unit) — confirmed with
   the primary author (2026-09-17); see `topic.md` Decisions.
+- `prose.md` recombined from 5 headings back to 3 (2026-09-17), and
+  `02-motivation.slidecontent.md` was added as the new home for the
+  fine-grained 5-unit breakdown. The 5-way split done in round 1 was a fix
+  for slide overflow under the old shared-source model; now that
+  `slidecontent.md` is separate (see `topic.md` Decisions), the document
+  register can go back to fewer, fuller subsections — hallucination and the
+  context window as one flowing "what goes wrong" passage, frozen weights and
+  sampling as one flowing "where this pays off" passage — while
+  `slidecontent.md` keeps one idea per slide.
 
 ## Open questions
 

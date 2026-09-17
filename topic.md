@@ -59,13 +59,14 @@ model as an opaque box to be prompted by trial and error.
 - A thought-provoking, high-level survey of current LLM developments to close
   on (CONCLUDE).
 - Figures at every stage the architecture can be drawn — this is a visual
-  tutorial by design. Figures are reused and attributed from the primary
-  sources rather than redrawn from scratch: the encoder-decoder and
-  decoder-only architecture figures from "Attention Is All You Need," and
-  supporting figures from the GPT paper line (e.g. "Language Models are
-  Few-Shot Learners") where they illustrate a point the source paper doesn't
-  — each figure carries a citation back to its source paper.
-- A short hands-on demo — see Shape below for the current best candidate.
+  tutorial by design. Figures are hand-drawn originals, adapted from and
+  attributed to the primary sources rather than reused as published: the
+  encoder-decoder and decoder-only architecture figures from "Attention Is
+  All You Need," and supporting figures from the GPT paper line (e.g.
+  "Language Models are Few-Shot Learners") where they illustrate a point the
+  source paper doesn't — each figure carries a citation back to its source
+  paper. See Decisions for why.
+- A short hands-on demo — built and captured; see Decisions.
 
 **Out of scope** — each item below is covered by a different tutorial
 elsewhere in the course, so `01-context` names it in passing (one line) as a
@@ -95,14 +96,15 @@ pointer rather than silence, without pulling it into this tutorial's scope.
   that follows.
 - `03-content` (HOW): the tutorial's center of mass, per the primary author's
   brief. Opens with the original encoder-decoder architecture from "Attention
-  Is All You Need" (figure reused, attributed), motivates the shift to
-  decoder-only, then walks the decoder-only stack layer by layer using the
-  decoder-only architecture figure as the anchor visual — reused/annotated
-  across multiple `##` units as the walkthrough moves through it, each carrying
-  its source citation. Closes with the hands-on demo (below), which needs the
-  layer walkthrough already done to land. This section will need more than the
-  shipped four `##` units once broken up for slides — each stage of the layer
-  walkthrough, and the demo itself, are plausibly their own slides.
+  Is All You Need" (figure attributed), motivates the shift to decoder-only,
+  then walks the decoder-only stack layer by layer using the decoder-only
+  architecture figure as the anchor visual, each figure carrying its source
+  citation. Closes with the hands-on demo (below), which needs the layer
+  walkthrough already done to land. `prose.md` and `slidecontent.md` are
+  separate documents as of 2026-09-17 (see Decisions) — `prose.md` needs
+  enough `##` subsections to carry the document's argument; `slidecontent.md`
+  needs enough `##` units, independently, to keep one idea and its figure per
+  slide. The two counts will not match, and shouldn't be forced to.
 - `04-conclusion` (WHAT ELSE): what the reader can now do, plus a
   thought-provoking, high-level look at current LLM developments (e.g. scaling,
   long-context, mixture-of-experts, multimodality, agentic tool use) as
@@ -125,6 +127,23 @@ capstone connection), but it is not the demo's focus.
 
 ## Decisions (resolved 2026-09-17)
 
+- **Split the presentation onto its own source, `slidecontent.md`, separate
+  from `prose.md` (2026-09-17).** Two rounds of review kept finding the same
+  tension under the old shared-source model: prose dense enough to earn its
+  place in the document was consistently too wordy once it hit a projected
+  slide (`03-content`'s figure- and demo-bearing units needed splitting
+  across 11 slides to avoid overflow, for content that reads as 8 natural
+  subsections in the document). Chosen over continuing to force one register
+  to serve both mediums. Cost: prose and slidecontent can now drift from each
+  other, which the `clarity` and `pedagogy` panel briefs are updated to watch
+  for explicitly.
+- Figures from "Attention Is All You Need" and the GPT paper line are
+  hand-drawn originals, adapted from and attributed to those papers, not the
+  papers' actual figures reused as-is (2026-09-17) — the redistribution
+  rights on the original published figures couldn't be confirmed. If a
+  figure proves too dense for a slide, the fix is still splitting the `##`
+  unit around it, not shrinking or redrawing.
+
 - Tokenization, sampling controls, and failure-mode material from the source
   `.md` stay as brief mentions inside `02-motivation` (in service of the
   hallucination/determinism argument) — no dedicated `##` unit. Chosen over
@@ -134,10 +153,6 @@ capstone connection), but it is not the demo's focus.
   feasible, an attention-map snapshot) after each layer. Chosen over the
   source `.md`'s original tokenizer/temperature demo because it exercises the
   architecture the walkthrough just taught, rather than I/O behavior.
-- Figures from "Attention Is All You Need" and the GPT paper line are reused
-  as-is, not redrawn. If a figure proves too dense for a slide, the fix is
-  splitting the `##` unit around it, not shrinking or redrawing the figure —
-  consistent with CLAUDE.md's "overflow is a writing problem" stance.
 - "Where the Field Is Headed" in `04-conclusion` stays at the category level
   (scaling, long-context, MoE, multimodality, agentic tool use) with no named
   models or papers, so the section doesn't go stale as specific models age

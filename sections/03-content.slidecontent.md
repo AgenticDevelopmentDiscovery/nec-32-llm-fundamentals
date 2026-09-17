@@ -1,0 +1,117 @@
+# Content
+
+<!-- Talking points and figures, not paragraphs. Every `##` becomes one slide.
+     Written for the deck, not reflowed from 03-content.prose.md. -->
+
+## The Original Transformer: Encoder-Decoder
+
+- "Attention Is All You Need" (Vaswani et al., 2017) — built for machine
+  translation
+- Two stacks:
+  - **Encoder** — reads the whole input, builds a representation
+  - **Decoder** — generates output one token at a time
+- Decoder attends to two things: its own prior output, and the encoder's
+  representation (**cross-attention**)
+
+## The Encoder-Decoder Stack
+
+![Two stacks: encoder reads the input; decoder generates output, attending to its own prior output and — via cross-attention — to the encoder. Adapted from Vaswani et al. (2017), Figure 1.](figures/encoder-decoder.svg){#fig:sc-encoder-decoder width=80%}
+
+## From Encoder-Decoder to Decoder-Only
+
+- Most current LLMs (GPT family, etc.) keep **only the decoder**
+- Drop: the encoder, cross-attention
+- No separate input to encode — trained purely to predict the next token
+  over its own input
+- One stack instead of two → trains on *any* text, not just paired
+  source/target
+- → this is why decoder-only is what scaled
+
+## The Decoder-Only Stack — the Anchor Diagram
+
+![A decoder-only stack, repeated N times. Everything that follows in this section is one piece of this picture — self-attention, feed-forward, residuals/norm, and the final projection are all inside the "×N" block.](figures/decoder-only.svg){#fig:sc-decoder-only width=48%}
+
+## Tokens → Embeddings
+
+- Token id → lookup in **embedding table** → vector
+- Starts arbitrary, comes to encode meaning as training proceeds
+- Everything downstream happens to these vectors — one per position
+- (this is the input to the stack in the previous figure)
+
+## Positional Information
+
+- Transformer processes all positions **in parallel** — no built-in sense
+  of order
+- Positional info added/learned alongside each token's embedding
+- Without it: "dog bit man" = "man bit dog" to every later layer
+
+## Self-Attention
+
+- Lets a token absorb info from every other token, weighted by relevance
+- Each token: *query* vs. every other token's *key* → decides how much of
+  its *value* to mix in
+- Example: "The cat sat on the mat **because it was tired**"
+  - *it*'s query matches *cat*'s key strongly
+  - → *it*'s new representation becomes mostly a weighted mix of *cat*'s
+    value
+- This *is* the context window: only tokens self-attention can reach
+- Multiple heads run in parallel, each free to focus on something different
+- (self-attention = the first block inside the ×N stack, previous figure)
+
+## Self-Attention, Visualized
+
+![Query/key/value weighting: "it"'s new representation becomes a weighted mix of every other token's value — dominated here by "cat."](figures/self-attention.svg){#fig:sc-self-attention width=62%}
+
+## Feed-Forward, Residuals, Normalization
+
+- **Feed-forward**: transforms each token's vector independently — same
+  small network at every position
+- **Residual connection**: adds each block's input back to its output —
+  keeps a straight path through the whole stack
+- **Normalization**: keeps the numbers stable, layer after layer
+- Without both: a stack more than a handful of layers deep stops being
+  buildable at all
+- (the second block inside the ×N stack, Figure 2)
+
+## Stacking to a Next-Token Distribution
+
+- ×N identical blocks — each layer builds a more abstract representation
+- GPT-2 small: N = 12
+- Final layer → one projection → probability distribution over the
+  **entire vocabulary**
+- Not a single answer — odds. Sampling picks the next token.
+
+## Demo: A Forward Pass, Layer by Layer
+
+- Real GPT-2 small, real sentence: "The cat sat on the mat because it was
+  tired"
+- Setup: `pip install torch transformers matplotlib`
+- Run: `python demo/forward_pass.py`
+
+```
+token + positional embedding : (1, 10, 768)
+after decoder layer  1        : (1, 10, 768)
+...
+after decoder layer 12        : (1, 10, 768)
+final projection to vocab     : (1, 10, 50257)
+```
+
+- Shape never changes layer to layer — only the final projection changes it
+
+## Demo: The Next Token, For Real
+
+```
+Next-token distribution after 'tired' (top 5 of 50257):
+   '.'     0.273
+   ' and'  0.208
+   ','     0.190
+   ' of'   0.128
+   ' from' 0.044
+```
+
+- No single "answer" — a `(1, 10, 50257)` tensor of odds
+- Generation just samples one
+
+## Demo: Attention, Visualized
+
+![Real GPT-2 small attention weights: the "it" row lights up almost entirely on "cat" — captured on an actual model, not asserted.](figures/demo-attention-map.png){#fig:sc-demo-attention width=48%}

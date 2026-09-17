@@ -47,7 +47,8 @@ Launch **one subagent per persona, all in a single message so they run
 concurrently.** Give each one:
 
 - the full text of its persona file, as its brief;
-- every `sections/*.prose.md` and every `sections/*.concepts.md`;
+- every `sections/*.prose.md`, every `sections/*.slidecontent.md`, and every
+  `sections/*.concepts.md`;
 - `topic.md` — the proposal, which is what the document promised to be;
 - `metadata.yaml` — the declared `audience` is the standard they judge against;
 - the round number;

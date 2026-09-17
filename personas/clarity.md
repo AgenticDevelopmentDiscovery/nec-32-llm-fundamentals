@@ -22,17 +22,29 @@ actually reached you.
   references where the argument defers something?
 - **Economy.** Is anything redundant, bloated, or missing? Cut before you add.
 
-## How to read the two registers
+## How to read the three registers
 
-Each section is a pair: `<name>.prose.md` is what ships, `<name>.concepts.md` is the spine
-behind it. Read both.
+Each section is a triple: `<name>.prose.md` is the document (and website),
+`<name>.slidecontent.md` is the presentation, `<name>.concepts.md` is the spine
+behind both. Read all three.
 
 Judge the **prose** on the criteria above.
-Judge the **spine** on whether the planned order of argument is coherent, and whether the
-directions it lists are framed concretely enough to be realized into prose.
+Judge the **slidecontent** on the same criteria, read as what it is — talking
+points and figures, not paragraphs. A through-line still has to hold across its
+`##` units, terms still have to be consistent, and a slide dressed up with
+bullets that says nothing is the same defect as a paragraph that says nothing.
+Judge the **spine** on whether the planned order of argument is coherent, and
+whether the directions it lists are framed concretely enough to be realized
+into prose and slidecontent.
 
-A spine that keeps accumulating unrealized intentions while the prose stalls is a finding,
-not a promise. Say so.
+Because prose and slidecontent no longer share a source, also read them
+**against each other**: a capability the document promises that the slides
+never mention, a term the slides use that the document never defines, or a
+claim the talking points make that the document doesn't support are findings,
+the same as any other inconsistency.
+
+A spine that keeps accumulating unrealized intentions while the prose or the
+slidecontent stalls is a finding, not a promise. Say so.
 
 ## What not to reward
 

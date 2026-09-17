@@ -26,29 +26,52 @@ was found and what was done about it — which is why `rounds/` is committed.
 
 ## The three outputs
 
-One Markdown source in `sections/` becomes three artifacts:
+Two Markdown registers in `sections/` — `.prose.md` and `.slidecontent.md` —
+become three artifacts:
 
-| Output | Built by | What it is |
-| --- | --- | --- |
-| **Document** | `just doc` | `output/document.pdf` — the long-form read |
-| **Presentation** | `just slides` | `output/slides.pdf` — one slide per `##` heading |
-| **Website** | `just site` | `_site/` — one page, sidebar contents, both PDFs linked |
+| Output | Built by | What it is | Source |
+| --- | --- | --- | --- |
+| **Document** | `just doc` | `output/document.pdf` — the long-form read | `*.prose.md` |
+| **Presentation** | `just slides` | `output/slides.pdf` — one slide per `##` heading | `*.slidecontent.md` |
+| **Website** | `just site` | `_site/` — one page, sidebar contents, both PDFs linked | `*.prose.md` |
 
 `just build` makes all three. `just serve` previews the site at `localhost:8000`.
 `just deploy` publishes to GitHub Pages.
 
-There is no generator and no engine. The section order is a **shell glob** over
-`sections/*.prose.md`, so the numeric prefixes on the filenames are the document
-order. Add a section by adding a numbered pair — nothing needs registering.
+There is no generator and no engine. Each output's section order is a **shell
+glob** — over `sections/*.prose.md` for the document and website, over
+`sections/*.slidecontent.md` for the presentation — so the numeric prefixes on
+the filenames are the order in every output. Add a section by adding a
+numbered triple — nothing needs registering.
 
-### The slide constraint is a writing constraint
+### Why slides get their own source
 
-Slides are made at `--slide-level=2`: **every `##` heading becomes one slide, and
-what sits under it must fit.**
+Earlier versions of this template built the presentation from the same prose
+as the document, on the theory that a slide that overflows is telling you the
+prose has lost its shape. In practice that coupling pushed in the opposite
+direction just as often: a paragraph that earns its place in a long-form read
+is usually too much for a projected frame, so writing one register to satisfy
+both crushed the document into bullet fragments or bloated the slides with
+prose no one would put on a screen. The two mediums want different things —
+a document reader tolerates a subordinate clause; a slide audience needs a
+talking point and a figure to look at — and a template that pretends otherwise
+optimizes for neither.
 
-Treat overflow as a finding about the prose, not a formatting nuisance. A `##`
-unit that will not fit a slide is almost always carrying more than one idea, or
-padded. Split it or cut it. Shrinking the font hides the signal.
+`slidecontent.md` is written **for the slide medium**, not reflowed from the
+document: short talking points, figure references, the one thing this slide
+says. It is still checked against the same discipline the old shared-source
+model enforced — one idea per `##` heading — but the writer is no longer
+fighting the document's own sentences to get there.
+
+### The slide constraint is still a writing constraint
+
+Slides are made at `--slide-level=2`: **every `##` heading in `slidecontent.md`
+becomes one slide, and what sits under it must fit.**
+
+Treat overflow as a finding about the talking points, not a formatting
+nuisance. A `##` unit that will not fit a slide is almost always carrying more
+than one idea, or padded. Split it or cut it. Shrinking the font hides the
+signal.
 
 Nothing in the build checks this for you — pandoc hides the TeX log unless the
 render fails, so an overfull frame is silent. That is deliberate. Overflow is a
@@ -56,21 +79,34 @@ judgement about whether a slide reads, not a threshold to pass: look at the deck
 or ask the agent to look at it with you. The `visual` reviewer names the `##`
 units it believes are carrying too much, and you confirm against the page.
 
-This is the whole reason the presentation shares a source with the document
-rather than being written separately: it is a standing check on whether the prose
-has kept its shape.
+Because `slidecontent.md` no longer shares a source with `prose.md`, the two
+can drift — a capability the document promises but the slides never mention,
+or a talking point that outruns what the document actually supports. That
+drift is now something the panel has to watch for explicitly; see the `clarity`
+and `pedagogy` briefs.
 
-## The artifact: a section is a pair
+## The artifact: a section is a triple
 
-Each section is **two registers of one subject**:
+Each section is **three registers of one subject**:
 
 ```
-sections/03-content.prose.md      what ships — rendered into all three outputs
-sections/03-content.concepts.md   the spine  — never rendered, always reviewed
+sections/03-content.prose.md         the document — long-form, rendered into the document and the website
+sections/03-content.slidecontent.md  the slides   — talking points and figures, rendered into the presentation only
+sections/03-content.concepts.md      the spine    — never rendered, always reviewed
 ```
 
-The sidecar is not a draft of the prose and not a summary of it. It holds what
-the prose cannot say in its own voice:
+`prose.md` and `slidecontent.md` are not one piece of writing in two shapes —
+they are two different jobs. `prose.md` carries the argument: transitions,
+qualification, the sentence that earns a claim before making the next one.
+`slidecontent.md` carries the talking points a presenter stands next to: short
+lines and figures, written to be spoken over, not read as paragraphs. Writing
+one by mechanically compressing or expanding the other is usually visible in
+the result — a slide deck of trimmed document sentences reads like a document
+with the connective tissue removed; a document expanded from bullet points
+reads like slides with the gaps papered over. Draft each in its own register.
+
+The sidecar is not a draft of either and not a summary of them. It holds what
+neither can say in its own voice:
 
 - **Claims** — the load-bearing assertions, one line each.
 - **Decisions** — why the section reads the way it does, and what was rejected.
@@ -83,10 +119,12 @@ wrong register.
 **Why bother.** Two things fall out of it, and neither is available from prose
 alone. The team stops relitigating settled choices, because the reason is written
 down where the next round will find it. And the panel can see the gap between
-intention and delivery: a spine that keeps growing while the prose stalls is a
-finding the reviewers are briefed to report. Promise is not delivery.
+intention and delivery: a spine that keeps growing while the prose or the
+slidecontent stalls is a finding the reviewers are briefed to report. Promise is
+not delivery — and now that promise, and the two things that could deliver on
+it, can each drift on their own.
 
-Both registers go to every reviewer.
+All three registers go to every reviewer.
 
 ### One level up: the proposal
 
@@ -121,11 +159,15 @@ case for itself is asking the reader to evaluate a claim about something they
 cannot picture.
 
 `03-content` is the tutorial and should be the longest by some margin. It ships
-with four `##` units and will usually need more — each new heading is another
-slide, and splitting is how you find the joints in your own explanation.
+with four `##` units in each of `prose.md` and `slidecontent.md`, and both will
+usually need more. The two counts do not have to match — a single document
+subsection can easily need two or three slides to say the same thing at
+talking-point pace — but each file's own heading count is still the tool for
+finding the joints in your explanation: split within whichever register is
+carrying too much.
 
 The arc is a default, not a guardrail. Change it if your subject wants a
-different shape; the build is a glob, so renaming and renumbering the pairs is
+different shape; the build is a glob, so renaming and renumbering the triples is
 the whole operation.
 
 ## The loop: one round at a time
@@ -222,8 +264,18 @@ hole.
   and `progression` operate on a LaTeX layout — `sections/<name>.tex`, `main.tex`,
   a `PROGRESSION.md` — that does not exist here. Their vocabulary overlaps this
   one ("sidecar", "propagate the concepts"), so they look applicable and are not.
-  This project's registers are `.prose.md` and `.concepts.md`, and the only verb
-  is `/round`.
+  This project's registers are `.prose.md`, `.slidecontent.md`, and
+  `.concepts.md`, and the only verb is `/round`.
+
+- **The presentation is built from `.slidecontent.md`, not `.prose.md`.**
+  Every section is a triple, not the template's original pair — this is a
+  deliberate departure from the shipped default, made after two rounds of
+  review kept surfacing the same tension: prose dense enough to earn its place
+  in the document was consistently too wordy once it hit a projected slide.
+  Splitting the slide deck onto its own authored source (talking points and
+  figures, not reflowed paragraphs) fixes that at the root instead of
+  asking one register to serve two audiences. See "The artifact: a section is
+  a triple" above.
 
 ## Your topic
 

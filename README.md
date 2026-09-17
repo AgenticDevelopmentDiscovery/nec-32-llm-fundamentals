@@ -1,13 +1,14 @@
 # nel-course
 
-A template for **evolving a document by critique**: one artifact, one Markdown
-source, three outputs, improved one round at a time by a panel of independent
-reviewers whose findings are reconciled into a single ranked docket.
+A template for **evolving a document by critique**: one artifact, two authored
+Markdown registers per section, three outputs, improved one round at a time by
+a panel of independent reviewers whose findings are reconciled into a single
+ranked docket.
 
 Clone it, replace the content in `sections/`, and run `/round`.
 
 > **[CLAUDE.md](CLAUDE.md) is the method.** How a round works, why the reviewers
-> are independent, what the two registers of a section are for, and the
+> are independent, what the three registers of a section are for, and the
 > guardrails — all of it lives there, in one file. This README only covers
 > getting the toolchain running and starting a project.
 
@@ -16,23 +17,26 @@ Clone it, replace the content in `sections/`, and run `/round`.
 ## What you get
 
 ```
-sections/           the source — one pair of files per section
+sections/           the source — one triple of files per section
 personas/           the reviewer panel, plus the aggregator
 rounds/             committed critique history: one folder per round
 site/               the website's template and stylesheet
-figures/            figures, referenced from the prose
+figures/            figures, referenced from the prose and slidecontent
 topic.md            the proposal — what this tutorial is and promises
 metadata.yaml       title, authors, and the declared audience
 justfile            every build recipe
 ```
 
-| | Command | Output |
-| --- | --- | --- |
-| Document | `just doc` | `output/document.pdf` |
-| Presentation | `just slides` | `output/slides.pdf` |
-| Website | `just site` | `_site/index.html` |
+| | Command | Output | Source |
+| --- | --- | --- | --- |
+| Document | `just doc` | `output/document.pdf` | `*.prose.md` |
+| Presentation | `just slides` | `output/slides.pdf` | `*.slidecontent.md` |
+| Website | `just site` | `_site/index.html` | `*.prose.md` |
 
-`just build` makes all three. `just serve` previews the site locally.
+`just build` makes all three. `just serve` previews the site locally. The
+presentation is **not** generated from the document's prose — it has its own
+source, written for the slide medium. See CLAUDE.md's "Why slides get their
+own source" if that's surprising.
 
 ## Setup
 
@@ -68,10 +72,11 @@ your writing.
 2. **Declare your reader.** Edit [metadata.yaml](metadata.yaml) — the title, the
    authors, and especially `audience`. The pedagogy reviewer judges the document
    against whatever you write there, so a vague audience buys you a vague review.
-3. **Write.** Replace the placeholders in `sections/`. Each section is a pair:
-   `<name>.prose.md` ships, `<name>.concepts.md` holds the spine behind it.
-   Section order is the numeric filename prefix — add a section by adding a
-   numbered pair.
+3. **Write.** Replace the placeholders in `sections/`. Each section is a
+   triple: `<name>.prose.md` is the document (and website),
+   `<name>.slidecontent.md` is the presentation, `<name>.concepts.md` holds
+   the spine behind both. Section order is the numeric filename prefix — add
+   a section by adding a numbered triple.
 4. **Check it renders.** `just build`.
 5. **Run a round.** `/round` in Claude Code. It produces a ranked docket at
    `rounds/round-NNN/SYNTHESIS.md` and stops; you decide what to act on.

@@ -1,6 +1,8 @@
 # figures/
 
-Drop figures here and reference them from a `.prose.md` section:
+Drop figures here and reference them from a `.prose.md` or `.slidecontent.md`
+section — the same figure can be used in both, or in only one if it's
+genuinely register-specific:
 
 ```markdown
 ![A caption that teaches on its own.](figures/my-figure.svg){#fig:mine width=70%}

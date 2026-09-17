@@ -1,9 +1,15 @@
-# nel-course — one Markdown source, three outputs.
+# nel-course — three Markdown registers per section, three outputs.
 #
-# Everything is built by pandoc from `sections/*.prose.md`. There is no engine
-# and no generator: the file list is a shell glob, so the numeric prefixes on the
-# section filenames ARE the document order. Add a section by adding a numbered
-# pair; nothing needs to be registered anywhere.
+# Each section is a triple: `<name>.prose.md` (document + website),
+# `<name>.slidecontent.md` (presentation), `<name>.concepts.md` (spine, never
+# rendered). `just doc` and `just site` build from `sections/*.prose.md`;
+# `just slides` builds from the separate `sections/*.slidecontent.md`, written
+# for the slide medium — talking points and figures, not reflowed paragraphs.
+#
+# There is no engine and no generator: each file list is a shell glob, so the
+# numeric prefixes on the section filenames ARE the order in every output. Add
+# a section by adding a numbered triple; nothing needs to be registered
+# anywhere.
 #
 # CI runs these same recipes (see .github/workflows/pages.yml), so there is one
 # definition of how each output is built and no second copy to drift.
@@ -39,18 +45,20 @@ doc:
 
 # --- Presentation -----------------------------------------------------------
 
-# output/slides.pdf — every `##` heading becomes one slide.
+# output/slides.pdf — built from `*.slidecontent.md`, not `*.prose.md`. Every
+# `##` heading becomes one slide.
 slides:
     mkdir -p {{outdir}}
-    {{pandoc}} sections/*.prose.md {{common}} \
+    {{pandoc}} sections/*.slidecontent.md {{common}} \
         --pdf-engine={{engine}} \
         -t beamer --slide-level=2 \
         -o {{outdir}}/slides.pdf
 
-# Overflowing slides are not a build problem to work around. They are the
-# clearest signal you have that a `##` unit is carrying more than one idea, and
-# the `visual` reviewer is briefed to report them as writing findings. Fix the
-# prose, not the font size.
+# `slidecontent.md` is written for this medium on purpose — talking points and
+# figures, not document prose reflowed to fit a frame. Overflow is still a
+# writing finding, not a build problem to work around: it means a `##` unit in
+# the slide file itself is carrying more than one idea, and the `visual`
+# reviewer is briefed to report it. Fix the talking points, not the font size.
 #
 # Nothing here checks for you: pandoc hides the TeX log unless the build fails.
 # Look at the deck, or ask the agent to.

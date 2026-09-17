@@ -47,6 +47,13 @@ required material.
   (confirmed 2026-09-17) since it's already cited on its own slide in
   `03-content`; keeps only the RLHF paper, the GPT-3 paper, and the Karpathy
   resource, which aren't introduced elsewhere.
+- Added `04-conclusion.slidecontent.md` (2026-09-17, see `topic.md` Decisions
+  for the framework split). `prose.md` is unchanged — it was never distorted
+  by the old shared-source slide constraint, and a document reader tolerates
+  "Where the Field Is Headed"'s five-fronts-in-one-paragraph fine.
+  `slidecontent.md` gives that same content its own bulleted slide instead,
+  which resolves the density risk `visual` flagged twice (round 1 and round
+  2) without cutting anything from the document.
 
 ## Open questions
 

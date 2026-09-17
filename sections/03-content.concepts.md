@@ -43,32 +43,46 @@ every stage, ending in a hands-on demo that shows it on a real model.
   "everything about attention, then everything about feed-forward"), because
   the author asked specifically for what happens to the data "in every
   layer" — a pass through the data, not a catalog of mechanisms.
-- Combined feed-forward + residuals + normalization into one `##` unit, and
-  "stacking layers" + "output distribution" into another, as a first-pass
-  slide granularity (8 units total). Expect the `visual` reviewer to flag any
-  of these as overloaded once drafted — see CLAUDE.md's slide-overflow
-  guardrail — and split further at that point rather than guessing right now.
+- Combined feed-forward + residuals + normalization into one document
+  subsection, and "stacking layers" + "output distribution" into another —
+  this grouping is about the *argument*, not slide fit, now that slides have
+  their own source (below).
 - Placed the hands-on demo at the end of this section, not in a separate
   section, because it depends on the walkthrough already having happened.
   Chosen over the source `.md`'s original tokenizer/temperature-sampling
   demo, which is about I/O rather than mechanism — see `topic.md`'s Demo
   section.
-- Chose to reuse and cite figures from "Attention Is All You Need" and the
-  GPT paper line rather than commission new diagrams, per explicit author
-  direction — see `topic.md` Scope.
-- Demo confirmed with the primary author (2026-09-17) as tensor-shape /
-  attention-map inspection on a small real model, layer by layer — see
-  `topic.md` Decisions. Not yet built; the prose slide is a description of
-  the plan, not the demo itself.
-- Figures confirmed reused as-is, not redrawn (2026-09-17). If a figure
-  proves too dense for a slide once embedded, the fix is splitting the `##`
-  unit around it, not shrinking or redrawing the figure.
-- 8 `##` units confirmed as the right granularity (2026-09-17) — the
-  rendered slide deck was checked page by page and neither combined unit
-  (feed-forward+residuals+norm; stacking+output) overflows.
+- Demo built and run (2026-09-17): tensor-shape / attention-map inspection
+  on GPT-2 small, layer by layer, on the example sentence already used in
+  Self-Attention — both `prose.md` and `slidecontent.md` now show real
+  captured output, not a description of the plan.
+- Figures are hand-drawn originals, adapted from and attributed to
+  "Attention Is All You Need" and the GPT paper line, not reused as
+  published (2026-09-17, supersedes the "reuse as-is" call in `topic.md`'s
+  original Scope) — redistribution rights on the published figures couldn't
+  be confirmed. All three figures now carry consistent attribution
+  ("Adapted from..." / "Illustrates the mechanism described in...").
+- **`prose.md` and `slidecontent.md` split onto separate sources (2026-09-17)
+  — see `topic.md` Decisions for why.** `prose.md` went back from 11 `##`
+  units to 8, matching the document's natural subsections, with all three
+  figures embedded inline in the argument rather than on their own
+  heading-slide. `slidecontent.md` is new: 13 `##` units, each one idea and
+  (where relevant) one figure, written as talking points rather than reflowed
+  prose. The figure/text split that used to live inside `prose.md` (e.g. "The
+  Encoder-Decoder Stack, Visualized" as its own heading) now lives entirely
+  in `slidecontent.md`, where it belongs.
 - Self-Attention gets one added sentence naming multi-head attention
   (confirmed 2026-09-17) — enough that the term isn't a surprise elsewhere,
-  without unpacking why multiple heads or how they're combined.
+  without unpacking why multiple heads or how they're combined. Present in
+  both `prose.md` and `slidecontent.md`.
+- Named "cross-attention" explicitly in the Encoder-Decoder unit (2026-09-17,
+  both registers) instead of introducing the term cold in a later figure
+  caption — the mechanism was already described there, just not named.
+- Cut "gradients" and "stops training reliably" from Feed-Forward/Residuals
+  /Normalization in both registers (2026-09-17) — training vocabulary the
+  tutorial explicitly scopes out. Replaced with "keeps a straight path
+  through the whole stack" / "stops being buildable at all," which makes the
+  same claim without assuming the reader knows what a gradient is.
 
 ## Open questions
 
