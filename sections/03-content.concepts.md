@@ -28,6 +28,9 @@ every stage, ending in a hands-on demo that shows it on a real model.
   window" claims in `02-motivation` are actually about.
 - Stacking many identical layers, not one complex layer, is how the model
   builds increasingly abstract representations of the sequence.
+- A layer runs several attention mechanisms in parallel ("heads"), each free
+  to focus on a different relationship, then combines their results — one
+  sentence, not a mechanism the walkthrough unpacks further.
 
 ## Decisions
 
@@ -53,23 +56,23 @@ every stage, ending in a hands-on demo that shows it on a real model.
 - Chose to reuse and cite figures from "Attention Is All You Need" and the
   GPT paper line rather than commission new diagrams, per explicit author
   direction — see `topic.md` Scope.
+- Demo confirmed with the primary author (2026-09-17) as tensor-shape /
+  attention-map inspection on a small real model, layer by layer — see
+  `topic.md` Decisions. Not yet built; the prose slide is a description of
+  the plan, not the demo itself.
+- Figures confirmed reused as-is, not redrawn (2026-09-17). If a figure
+  proves too dense for a slide once embedded, the fix is splitting the `##`
+  unit around it, not shrinking or redrawing the figure.
+- 8 `##` units confirmed as the right granularity (2026-09-17) — the
+  rendered slide deck was checked page by page and neither combined unit
+  (feed-forward+residuals+norm; stacking+output) overflows.
+- Self-Attention gets one added sentence naming multi-head attention
+  (confirmed 2026-09-17) — enough that the term isn't a surprise elsewhere,
+  without unpacking why multiple heads or how they're combined.
 
 ## Open questions
 
-- Does the proposed demo (tensor-shape / attention-map inspection on a small
-  real model, layer by layer) match what the primary author has in mind?
-  This blocks writing the demo's actual content and code — flagged in
-  `topic.md` as needing author confirmation.
-- Which figures specifically, and do any need redrawing or simplifying to
-  survive `--slide-level=2`? The original "Attention Is All You Need" figure
-  is dense; CLAUDE.md treats slide overflow as a finding about the content,
-  not something to shrink-to-fit.
-- Is 8 `##` units the right first-pass granularity, or should the combined
-  units (feed-forward+residuals+norm; stacking+output) be split now instead
-  of waiting for round feedback?
-- How much does the reader need to know about multi-head attention
-  specifically, versus single-head self-attention as a mental model — an
-  unresolved level-of-detail question for the Self-Attention unit.
+- (none outstanding as of 2026-09-17)
 
 ## Not doing
 

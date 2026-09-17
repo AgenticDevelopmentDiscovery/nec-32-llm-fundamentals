@@ -39,16 +39,19 @@ and will not cover.
   stay silent — per the primary author's request that an omission read as
   deliberate rather than as a gap. Each pointer names which other course
   tutorial covers it.
+- Out-of-scope pointers stay generic ("covered by a different tutorial
+  elsewhere in the course") rather than naming specific tutorial
+  numbers/titles — confirmed with the primary author (2026-09-17); can be
+  swapped for real names once the course syllabus is finalized, without
+  blocking this draft.
+- "Where Transformers Came From" keeps its current one-clause mention of the
+  translation origin and the recurrence-to-attention shift, without naming
+  "encoder-decoder" — confirmed with the primary author (2026-09-17); the
+  full architectural story stays reserved for `03-content`'s opening.
 
 ## Open questions
 
-- Exact one-line phrasing for each of the three out-of-scope pointers
-  (training mechanics, tokenizer internals, fine-tuning/RLHF/prompting) — and
-  whether the course has settled tutorial names/numbers to point to, or only
-  "covered elsewhere in the course" as a placeholder for now.
-- Whether "Where Transformers Came From" should mention the encoder-decoder
-  origin at all here (one clause, WHAT-level) or leave it entirely to
-  `03-content`'s opening, to avoid duplicating that section's first beat.
+- (none outstanding as of 2026-09-17)
 
 ## Not doing
 

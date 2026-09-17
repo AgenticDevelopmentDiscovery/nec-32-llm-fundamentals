@@ -40,18 +40,17 @@ required material.
   Karpathy's "Let's build GPT") into "Where to Go Next" as pointers, not
   summaries — consistent with `01-context`'s out-of-scope items pointing
   elsewhere rather than being covered here.
+- "Where the Field Is Headed" stays fully generic — categories only, no named
+  models or papers — confirmed with the primary author (2026-09-17), so the
+  section doesn't go stale as specific models age out.
+- "Where to Go Next" drops "Attention Is All You Need" from its list
+  (confirmed 2026-09-17) since it's already cited on its own slide in
+  `03-content`; keeps only the RLHF paper, the GPT-3 paper, and the Karpathy
+  resource, which aren't introduced elsewhere.
 
 ## Open questions
 
-- Overlaps with § Open edges in the prose — but this list is for the team,
-  and that section (when drafted) is for the reader. Not everything here is
-  ready to ship there.
-- Should "Where the Field Is Headed" name specific model families or papers,
-  or stay fully generic to avoid the section aging quickly? Naming specifics
-  risks staleness sooner than naming categories only.
-- Is repeating the "Attention Is All You Need" / GPT-line citations in
-  "Where to Go Next" redundant with their use in `03-content`, or useful as a
-  consolidated reading list at the end?
+- (none outstanding as of 2026-09-17)
 
 ## Not doing
 

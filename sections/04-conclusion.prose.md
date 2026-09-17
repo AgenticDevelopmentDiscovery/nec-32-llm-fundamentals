@@ -28,10 +28,8 @@ tutorial's walkthrough, not an unrelated new idea.
 
 ## Where to Go Next
 
-For the architecture itself: "Attention Is All You Need" (Vaswani et al.,
-2017) — the paper this tutorial's figures come from. For how a model like
-this becomes a helpful assistant rather than a raw next-token predictor: the
-InstructGPT / RLHF paper. For in-context learning at scale: "Language Models
-are Few-Shot Learners," the GPT-3 paper. And for a from-scratch, hands-on
-walkthrough of everything covered here, in code: Andrej Karpathy's "Let's
-build GPT."
+For how a model like this becomes a helpful assistant rather than a raw
+next-token predictor: the InstructGPT / RLHF paper. For in-context learning
+at scale: "Language Models are Few-Shot Learners," the GPT-3 paper. And for a
+from-scratch, hands-on walkthrough of everything covered here, in code:
+Andrej Karpathy's "Let's build GPT."

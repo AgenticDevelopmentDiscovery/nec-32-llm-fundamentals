@@ -16,8 +16,8 @@ sequence-to-sequence tasks like translation, where there is a clear source
 sequence and a target sequence that are meaningfully different from one
 another.
 
-**Figure (TODO):** the encoder-decoder architecture, Vaswani et al. (2017),
-Figure 1 — reused, attributed.
+**Figure (not yet embedded):** the encoder-decoder architecture, Vaswani et
+al. (2017), Figure 1, reused as-is and attributed — see `figures/README.md`.
 
 ## From Encoder-Decoder to Decoder-Only
 
@@ -29,8 +29,9 @@ architecture from two stacks into one, and lets a single model train on any
 text at all, not just paired source/target sequences — a large part of why
 this variant is what scaled to today's LLMs.
 
-**Figure (TODO):** the decoder-only architecture — the tutorial's anchor
-visual, reused/annotated across the units below.
+**Figure (not yet embedded):** the decoder-only architecture, reused as-is
+from the GPT paper line and attributed — the tutorial's anchor visual,
+reused/annotated across the units below.
 
 ## Tokens and Embeddings
 
@@ -58,7 +59,9 @@ Each token produces a *query*, and compares it against every other token's
 pronoun's representation can shift to reflect a noun several sentences
 earlier — and it is the mechanism the "context window" claims from the
 motivation section are actually about: the window is the set of tokens
-self-attention can reach.
+self-attention can reach. In practice, a layer runs several of these
+attention mechanisms in parallel — called **heads** — each free to focus on
+a different kind of relationship, then combines their results.
 
 ## Feed-Forward, Residuals, and Normalization
 
@@ -83,8 +86,7 @@ step. Sampling from that distribution is what produces the next token.
 
 ## Demo: A Forward Pass, Layer by Layer
 
-**Demo (pending confirmation of approach):** load a small open-weights
-decoder-only model, feed it a short input, and print the tensor shape — and,
-where feasible, an attention-map snapshot — after each layer, so the
-walkthrough above is something you watch happen on real data rather than
-take on faith.
+**Demo (not yet built):** load a small open-weights decoder-only model (e.g.
+GPT-2 small), feed it a short input, and print the tensor shape — and, where
+feasible, an attention-map snapshot — after each layer, so the walkthrough
+above is something you watch happen on real data rather than take on faith.

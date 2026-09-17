@@ -38,15 +38,21 @@ understanding pays off most.
   motivation is stated in terms of surface behaviors the reader has likely
   already experienced (hallucination, context limits, non-determinism),
   saving the mechanism itself for `03-content`.
+- Stays generic — no reference to this course's specific eval harness or
+  capstone project — confirmed with the primary author (2026-09-17), so the
+  section reads standalone and doesn't need updating if the capstone's design
+  changes later.
+- "What Goes Wrong Without It" keeps its current hypothetical-but-concrete
+  framing (a model inventing a plausible fact, an agent silently dropping an
+  instruction) rather than a real transcript — confirmed with the primary
+  author (2026-09-17); no sourced example needed.
+- Tokenization, sampling controls, and failure-mode material from the source
+  `.md` stay as brief mentions here (no dedicated `##` unit) — confirmed with
+  the primary author (2026-09-17); see `topic.md` Decisions.
 
 ## Open questions
 
-- Should this section reference specific downstream systems (an eval
-  harness, a capstone project) the way the source `.md` did, or stay generic
-  enough to stand alone for a reader outside this course's specific context?
-- How concrete should "What Goes Wrong Without It" get — a hypothetical
-  failure, or a real transcript/example of an agent hallucinating or
-  overrunning its context budget?
+- (none outstanding as of 2026-09-17)
 
 ## Not doing
 

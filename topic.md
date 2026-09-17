@@ -112,35 +112,37 @@ pointer rather than silence, without pulling it into this tutorial's scope.
 
 A short hands-on demo is in scope, placed at the end of `03-content` once the
 architecture walkthrough has established what a forward pass through the
-layers actually does. Best current candidate, in keeping with the
-architecture-first framing (rather than the source `.md`'s tokenizer +
-temperature-sampling demo, which is more about I/O than mechanism): load a
-small open-weights decoder-only model and print/visualize the tensor shape
+layers actually does. Confirmed with the primary author (2026-09-17), in
+keeping with the architecture-first framing (rather than the source `.md`'s
+tokenizer + temperature-sampling demo, which is more about I/O than
+mechanism): load a small open-weights decoder-only model and print/visualize
+the tensor shape
 (and, if feasible, an attention-map snapshot) after each layer for a short
 input, so the reader watches the layer-by-layer walkthrough happen on real
 data instead of taking it on faith. Sampling temperature can still get a
 one-line callback here since it's already covered under Why (Spine 1 /
 capstone connection), but it is not the demo's focus.
 
+## Decisions (resolved 2026-09-17)
+
+- Tokenization, sampling controls, and failure-mode material from the source
+  `.md` stay as brief mentions inside `02-motivation` (in service of the
+  hallucination/determinism argument) — no dedicated `##` unit. Chosen over
+  giving it its own slide or cutting it to a pointer-only mention.
+- The `03-content` demo is a layer-by-layer forward-pass inspection: load a
+  small open-weights decoder-only model, print the tensor shape (and, where
+  feasible, an attention-map snapshot) after each layer. Chosen over the
+  source `.md`'s original tokenizer/temperature demo because it exercises the
+  architecture the walkthrough just taught, rather than I/O behavior.
+- Figures from "Attention Is All You Need" and the GPT paper line are reused
+  as-is, not redrawn. If a figure proves too dense for a slide, the fix is
+  splitting the `##` unit around it, not shrinking or redrawing the figure —
+  consistent with CLAUDE.md's "overflow is a writing problem" stance.
+- "Where the Field Is Headed" in `04-conclusion` stays at the category level
+  (scaling, long-context, MoE, multimodality, agentic tool use) with no named
+  models or papers, so the section doesn't go stale as specific models age
+  out.
+
 ## Open questions
 
-- How much of the original tokenization / sampling-controls / failure-modes
-  material from the source `.md` should be folded into `02-motivation` versus
-  handled as a one-line out-of-scope pointer in `01-context`? The primary
-  author's brief supersedes the source document's "Key ideas to cover" list
-  but does not explicitly say what to do with tokenization and sampling —
-  they are referenced in the Why section above but not committed to a `##`
-  unit.
-- Does the demo above (layer-by-layer tensor/attention inspection on a real
-  small model) match what the primary author has in mind, or did they intend
-  something closer to the original tokenizer/temperature demo, just moved
-  later in the tutorial? This needs the author's confirmation before
-  `03-content` is drafted, since it determines what code/model dependencies
-  the tutorial needs.
-- Which specific figures from "Attention Is All You Need" and the GPT paper
-  line will be used, and do they need to be redrawn/simplified for slide
-  legibility rather than reused as-is (the slide constraint in CLAUDE.md means
-  a dense original figure may not survive `--slide-level=2` without editing)?
-- Does "further thought-provoking current LLM developments" in the conclusion
-  need to be scoped to a fixed list of topics, or is it left open for whoever
-  writes `04-conclusion` to pick at the time?
+- (none outstanding as of 2026-09-17 — see Decisions above)
