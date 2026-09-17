@@ -1,8 +1,3 @@
-# Conclusion
-
-<!-- Talking points and figures, not paragraphs. Every `##` becomes one slide.
-     Written for the deck, not reflowed from 04-conclusion.prose.md. -->
-
 ## What You Can Do Now
 
 - Explain what a transformer is, and why LLMs are built on one

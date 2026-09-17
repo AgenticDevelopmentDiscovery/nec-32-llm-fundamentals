@@ -101,6 +101,19 @@ every stage, ending in a hands-on demo that shows it on a real model.
 - Named "cross-attention" explicitly in the Encoder-Decoder unit (2026-09-17,
   both registers) instead of introducing the term cold in a later figure
   caption — the mechanism was already described there, just not named.
+- **`slidecontent.md` now repeats the anchor diagram, circled, on every
+  unit that walks through one piece of the stack (2026-09-17), per the
+  primary author** — see `topic.md` Decisions. New compact horizontal
+  figures (`figures/decoder-only-hl-*.svg`) on Tokens/Embeddings,
+  Positional Information, Self-Attention, Feed-Forward/Residuals
+  /Normalization, and Stacking. `prose.md` was not changed for this — the
+  document already orients the reader with in-text figure references
+  ("Figure 2," "pictured whole in Figure 4"), which don't need a repeated
+  image the way a slide, read in sequence with nothing to look back at,
+  does.
+- **Removed the H1 from `slidecontent.md` (2026-09-17), per the primary
+  author** — see `topic.md` Decisions for the section-divider-slide
+  removal this was for.
 - Cut "gradients" and "stops training reliably" from Feed-Forward/Residuals
   /Normalization in both registers (2026-09-17) — training vocabulary the
   tutorial explicitly scopes out. Replaced with "keeps a straight path

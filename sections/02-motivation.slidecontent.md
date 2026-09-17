@@ -1,8 +1,3 @@
-# Motivation
-
-<!-- Talking points and figures, not paragraphs. Every `##` becomes one slide.
-     Written for the deck, not reflowed from 02-motivation.prose.md. -->
-
 ## Why This Matters for Agents
 
 - LLM = next-token predictor, fixed context window, frozen weights

@@ -58,6 +58,8 @@ understanding pays off most.
   context window as one flowing "what goes wrong" passage, frozen weights and
   sampling as one flowing "where this pays off" passage — while
   `slidecontent.md` keeps one idea per slide.
+- `slidecontent.md` has no H1 (2026-09-17, per the primary author) — see
+  `topic.md` Decisions for the section-divider-slide removal this was for.
 
 ## Open questions
 

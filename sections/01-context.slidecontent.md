@@ -1,8 +1,3 @@
-# Context
-
-<!-- Talking points and figures, not paragraphs. Every `##` becomes one slide.
-     Written for the deck, not reflowed from 01-context.prose.md. -->
-
 ## What a Transformer Is
 
 - An LLM is (almost always) a **Transformer**: a neural net trained to

@@ -1,8 +1,3 @@
-# Content
-
-<!-- Talking points and figures, not paragraphs. Every `##` becomes one slide.
-     Written for the deck, not reflowed from 03-content.prose.md. -->
-
 ## The Original Transformer: Encoder-Decoder
 
 - "Attention Is All You Need" (Vaswani et al., 2017) — built for machine
@@ -36,7 +31,8 @@
 - Token id → lookup in **embedding table** → vector
 - Starts arbitrary, comes to encode meaning as training proceeds
 - Everything downstream happens to these vectors — one per position
-- (this is the input to the stack in the previous figure)
+
+![Where we are: the input, before the first layer.](figures/decoder-only-hl-input.svg){#fig:sc-hl-input width=92%}
 
 ## Positional Information
 
@@ -45,18 +41,17 @@
 - Positional info added/learned alongside each token's embedding
 - Without it: "dog bit man" = "man bit dog" to every later layer
 
+![Where we are: still the input stage — position joins the token embedding here.](figures/decoder-only-hl-input.svg){#fig:sc-hl-input2 width=92%}
+
 ## Self-Attention
 
 - Lets a token absorb info from every other token, weighted by relevance
 - Each token: *query* vs. every other token's *key* → decides how much of
-  its *value* to mix in
-- Example: "The cat sat on the mat **because it was tired**"
-  - *it*'s query matches *cat*'s key strongly
-  - → *it*'s new representation becomes mostly a weighted mix of *cat*'s
-    value
+  its *value* to mix in (worked example: next slide)
 - This *is* the context window: only tokens self-attention can reach
 - Multiple heads run in parallel, each free to focus on something different
-- (self-attention = the first block inside the ×N stack, previous figure)
+
+![Where we are: the first block inside the ×N stack.](figures/decoder-only-hl-attention.svg){#fig:sc-hl-attention width=75%}
 
 ## Self-Attention, Visualized
 
@@ -71,8 +66,8 @@
 - **Normalization**: keeps the numbers stable, layer after layer
 - Without both: a stack more than a handful of layers deep stops being
   buildable at all
-- (the second block inside the ×N stack — pictured next, and inside
-  Figure 2)
+
+![Where we are: the second block inside the ×N stack.](figures/decoder-only-hl-feedforward.svg){#fig:sc-hl-feedforward width=92%}
 
 ## The Decoder Block, Visualized
 
@@ -86,6 +81,8 @@
 - Final layer → one projection → probability distribution over the
   **entire vocabulary**
 - Not a single answer — odds. Sampling picks the next token.
+
+![Where we are: this whole block, repeated ×N.](figures/decoder-only-hl-stacking.svg){#fig:sc-hl-stacking width=92%}
 
 ## Demo: A Forward Pass, Layer by Layer
 

@@ -54,6 +54,8 @@ and will not cover.
   figures and was never distorted by the old shared-source slide constraint
   — so it stays the long-form register unchanged; `slidecontent.md` is new
   talking-points content covering the same three claims at slide pace.
+- `slidecontent.md` has no H1 (2026-09-17, per the primary author) — see
+  `topic.md` Decisions for the section-divider-slide removal this was for.
 
 ## Open questions
 

@@ -143,6 +143,25 @@ capstone connection), but it is not the demo's focus.
   rights on the original published figures couldn't be confirmed. If a
   figure proves too dense for a slide, the fix is still splitting the `##`
   unit around it, not shrinking or redrawing.
+- **Dropped the section-divider slides from the deck (2026-09-17), per the
+  primary author.** Every `slidecontent.md` file used to open with a `#
+  SectionName` heading, matching the document; each one produced two
+  non-content slides (a metropolis divider, then an empty title frame) —
+  eight dead slides total, cut given the presentation's timeline. Fix:
+  `slidecontent.md` files no longer have an H1, or any content at all before
+  their first `##` (even a leading comment was enough to trigger an empty
+  frame). `prose.md` keeps its H1 — the document and website still need it
+  for their table of contents.
+- **`03-content`'s slides now repeat the anchor diagram (Figure 2 /
+  `decoder-only.svg`) with the current piece circled, on every unit that
+  walks through one part of the stack (2026-09-17), per the primary author.**
+  A compact horizontal version — `figures/decoder-only-hl-*.svg`, one file
+  per highlighted region (input, self-attention, feed-forward, the whole
+  ×N block) — sits below the bullets on Tokens/Embeddings, Positional
+  Information, Self-Attention, Feed-Forward/Residuals/Normalization, and
+  Stacking. The tall original `decoder-only.svg` proportions didn't fit
+  next to bullet text without overflow risk, hence the separate horizontal
+  layout rather than reusing the anchor image file directly.
 
 - Tokenization, sampling controls, and failure-mode material from the source
   `.md` stay as brief mentions inside `02-motivation` (in service of the

@@ -95,6 +95,16 @@ sections/03-content.slidecontent.md  the slides   — talking points and figures
 sections/03-content.concepts.md      the spine    — never rendered, always reviewed
 ```
 
+**`slidecontent.md` has no H1, and nothing at all before its first `##`.**
+`prose.md` opens with `# SectionName` because the document and website need it
+for their table of contents. `slidecontent.md` does not: at `--slide-level=2`,
+pandoc's beamer writer turns every H1 into a `\section{}`, and the default
+template inserts a divider frame *and* an empty title frame for every
+`\section{}` — two dead slides per section, gone from the deck's actual time
+budget. The fix is not "one H1, not two" — it's no H1 at all, and no other
+block-level content either: even a leading HTML comment before the first `##`
+is enough to make pandoc open an empty frame to hold it. A `slidecontent.md`
+file starts directly at its first `## Heading`.
 `prose.md` and `slidecontent.md` are not one piece of writing in two shapes —
 they are two different jobs. `prose.md` carries the argument: transitions,
 qualification, the sentence that earns a claim before making the next one.

@@ -54,6 +54,8 @@ required material.
   `slidecontent.md` gives that same content its own bulleted slide instead,
   which resolves the density risk `visual` flagged twice (round 1 and round
   2) without cutting anything from the document.
+- `slidecontent.md` has no H1 (2026-09-17, per the primary author) — see
+  `topic.md` Decisions for the section-divider-slide removal this was for.
 
 ## Open questions
 
