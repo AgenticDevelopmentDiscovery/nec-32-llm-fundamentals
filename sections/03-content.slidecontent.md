@@ -60,7 +60,7 @@
 
 ## Self-Attention, Visualized
 
-![Query/key/value weighting: "it"'s new representation becomes a weighted mix of every other token's value — dominated here by "cat."](figures/self-attention.svg){#fig:sc-self-attention width=62%}
+![Sentence: "The cat sat on the mat because it was tired." Query/key/value weighting: "it"'s new representation becomes a weighted mix of every other token's value — dominated here by "cat."](figures/self-attention.svg){#fig:sc-self-attention width=55%}
 
 ## Feed-Forward, Residuals, Normalization
 
@@ -71,11 +71,17 @@
 - **Normalization**: keeps the numbers stable, layer after layer
 - Without both: a stack more than a handful of layers deep stops being
   buildable at all
-- (the second block inside the ×N stack, Figure 2)
+- (the second block inside the ×N stack — pictured next, and inside
+  Figure 2)
+
+## The Decoder Block, Visualized
+
+![One full decoder block: self-attention and feed-forward, each followed by a residual connection (green) and normalization — the unit that the decoder-only stack's "×N" repeats.](figures/residuals.svg){#fig:sc-residuals width=42%}
 
 ## Stacking to a Next-Token Distribution
 
-- ×N identical blocks — each layer builds a more abstract representation
+- The block just pictured, repeated ×N — each layer builds a more
+  abstract representation
 - GPT-2 small: N = 12
 - Final layer → one projection → probability distribution over the
   **entire vocabulary**

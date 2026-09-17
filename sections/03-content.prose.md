@@ -66,27 +66,29 @@ then combines their results.
 
 ## Feed-Forward, Residuals, and Normalization
 
-After attention mixes information *across* tokens, a **feed-forward block**
-transforms each token's representation independently — the same small
-network applied at every position. Two things hold a deep stack of these
-layers together: a **residual connection** adds each block's input back to
-its output, so information has a direct path through the whole stack; and
-**normalization** keeps the scale of the numbers flowing through it stable,
-layer after layer. Without both, stacking more than a handful of layers
-stops being workable at all — it's what makes a stack twelve or a hundred
-layers deep something you can actually build, rather than something that
-only works on paper.
+After self-attention mixes information *across* tokens, a **feed-forward
+block** — the second piece of each layer in Figure 2 — transforms each
+token's representation independently: the same small network applied at
+every position. Two things hold a deep stack of these layers together, and
+Figure 4 draws both: a **residual connection** adds each block's input back
+to its output, so information has a direct path through the whole stack,
+bypassing self-attention and feed-forward in turn; and **normalization**
+keeps the scale of the numbers flowing through it stable, layer after layer.
+Without both, stacking more than a handful of layers stops being workable at
+all — it's what makes a stack twelve or a hundred layers deep something you
+can actually build, rather than something that only works on paper.
+
+![One full decoder block: self-attention and feed-forward, each followed by a residual connection (green) and normalization — the unit that Figure 2's "×N" repeats.](figures/residuals.svg){#fig:residuals width=52%}
 
 ## Stacking Layers to a Next-Token Distribution
 
-A decoder-only transformer is this block — attention, feed-forward,
-residuals, normalization — repeated N times (GPT-2 small, used in the demo
-below, stacks N=12 of them), each layer building a more abstract
-representation of the sequence than the last. After the final layer, one
-more projection maps each position's vector onto the size of the vocabulary
-and turns it into a probability distribution over what token comes next —
-not a single answer, but odds across the entire vocabulary. Sampling from
-that distribution is what produces the next token.
+A decoder-only transformer is this block — pictured whole in Figure 4 —
+repeated N times (GPT-2 small, used in the demo below, stacks N=12 of them),
+each layer building a more abstract representation of the sequence than the
+last. After the final layer, one more projection maps each position's vector
+onto the size of the vocabulary and turns it into a probability distribution
+over what token comes next — not a single answer, but odds across the entire
+vocabulary. Sampling from that distribution is what produces the next token.
 
 ## Demo: A Forward Pass, Layer by Layer
 
@@ -121,7 +123,7 @@ Next-token distribution after 'tired' (top 5 of 50257):
 
 No single "answer" — a `(1, 10, 50257)` tensor of odds, and generation just
 samples one. The self-attention weights are just as inspectable as the
-output: Figure 4 captures layer 5, head 4 of this same run, the head where
+output: Figure 5 captures layer 5, head 4 of this same run, the head where
 "it" attends most strongly to "cat" — the same query/key/value mechanism
 from Figure 3, captured on an actual model instead of asserted.
 

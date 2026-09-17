@@ -65,12 +65,35 @@ every stage, ending in a hands-on demo that shows it on a real model.
 - **`prose.md` and `slidecontent.md` split onto separate sources (2026-09-17)
   — see `topic.md` Decisions for why.** `prose.md` went back from 11 `##`
   units to 8, matching the document's natural subsections, with all three
-  figures embedded inline in the argument rather than on their own
-  heading-slide. `slidecontent.md` is new: 13 `##` units, each one idea and
-  (where relevant) one figure, written as talking points rather than reflowed
-  prose. The figure/text split that used to live inside `prose.md` (e.g. "The
-  Encoder-Decoder Stack, Visualized" as its own heading) now lives entirely
-  in `slidecontent.md`, where it belongs.
+  original figures embedded inline in the argument rather than on their own
+  heading-slide. `slidecontent.md` is new: 14 `##` units (13, then +1 for the
+  new residuals figure below), each one idea and (where relevant) one figure,
+  written as talking points rather than reflowed prose. The figure/text split
+  that used to live inside `prose.md` (e.g. "The Encoder-Decoder Stack,
+  Visualized" as its own heading) now lives entirely in `slidecontent.md`,
+  where it belongs.
+- **Added a fourth figure, `figures/residuals.svg`, for Feed-Forward/
+  Residuals/Normalization (2026-09-17).** This was the one core mechanism in
+  the walkthrough with no supporting image — a skip connection is
+  definitionally a relationship (an arrow bypassing a box), and the prose was
+  asking the reader to picture a structure it didn't draw. Shows one full
+  decoder block: self-attention and feed-forward, each followed by a residual
+  add and a norm. In `prose.md` it's Figure 4, which pushed the demo's
+  attention-map figure to Figure 5 — the in-text reference in the Demo
+  section was updated to match.
+- **Added the missing back-references to the anchor figure.** Feed-Forward
+  now points to Figure 2 (where it sits in the overall stack) and to the new
+  Figure 4 (its own detailed diagram); Stacking Layers now points to Figure 4
+  ("pictured whole in Figure 4 — repeated N times"). Self-Attention and
+  Tokens/Embeddings already had theirs. Every unit between the anchor figure
+  and the demo now orients the reader back to a picture, in both registers.
+- **Self-Attention, Visualized caption restored to self-contained
+  (2026-09-17).** The caption had been shortened to fix slide overflow,
+  which dropped the example sentence and left the caption assuming the
+  reader had just seen the prior slide — the exact defect this caption was
+  supposed to fix. Restored the sentence and shrank the image further
+  (width 55%) instead, so it fits without cutting the one thing that makes
+  it stand alone.
 - Self-Attention gets one added sentence naming multi-head attention
   (confirmed 2026-09-17) — enough that the term isn't a surprise elsewhere,
   without unpacking why multiple heads or how they're combined. Present in
