@@ -26,3 +26,11 @@ _site/
 # Local Claude Code settings. `.claude/skills/` IS tracked — the /round verb is
 # part of the template and every team member needs it.
 .claude/settings.local.json
+
+# demo/forward_pass.py's virtual env — large, machine-specific, reproducible
+# from `pip install torch --index-url https://download.pytorch.org/whl/cpu
+# transformers numpy matplotlib`. The script and its captured output
+# (figures/demo-attention-map.png) are tracked; the env is not.
+demo/.venv/
+demo/__pycache__/
+

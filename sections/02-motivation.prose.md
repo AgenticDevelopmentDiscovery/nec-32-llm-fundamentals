@@ -12,24 +12,32 @@ design, sampling — stop being folklore and start being consequences you can
 reason about. That's the case for sitting through the architecture
 walkthrough that follows.
 
-## What Goes Wrong Without It
+## Hallucination: Confident, Not Correct
 
 **Hallucination** is not a bug that a future model update will quietly fix —
 it's the direct consequence of an objective that optimizes for likely
 tokens, not true ones. A model will confidently complete a sentence with a
 plausible-sounding fact it never verified, because "plausible" is exactly
-what it was trained to produce. The **context window** is just as
-unforgiving: it's a hard token budget, and once a conversation or a
+what it was trained to produce.
+
+## The Context Window: A Hard Budget
+
+The **context window** is just as unforgiving as hallucination, for a
+different reason: it's a hard token budget, and once a conversation or a
 retrieved document exceeds it, older content doesn't fade gracefully — it's
 simply gone. An agent that silently drops an instruction from three turns
 ago is usually just out of room.
 
-## Where This Understanding Pays Off Most
+## Frozen Weights and Why Memory Needs Retrieval
 
 Weights are frozen at inference: the model is not learning from your prompt,
 so anything an agent "remembers" mid-conversation lives only in the context
 window you feed it — this is *why* retrieval and memory systems exist at
-all. Sampling controls (temperature, top-p/top-k) set how deterministic an
+all.
+
+## Sampling and Reproducibility
+
+Sampling controls (temperature, top-p/top-k) set how deterministic an
 agent's output is, which matters when you need a reproducible eval harness:
 a temperature-0 agent gives repeatable results, a temperature-1.2 agent gives
 a different answer every run.
