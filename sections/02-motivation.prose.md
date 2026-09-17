@@ -2,34 +2,34 @@
 
 <!-- Every `##` becomes one slide. One idea each. -->
 
-## Why it matters for agentic development
+## Why Architecture Understanding Matters for Agents
 
-> The case, made concretely. What does this tool, technique, or notion let an
-> agentic system do that is hard or impossible without it?
->
-> Tie it to agentic development specifically — not to software in general. If the
-> answer would read the same for any programming topic, you have not made the
-> case yet.
+Every capability and every failure mode your agent exhibits traces back to
+this mechanism. Once you know an LLM is a next-token predictor operating over
+a fixed window of tokens, with weights that don't change while it's running,
+the levers you actually have — context engineering, grounding, prompt
+design, sampling — stop being folklore and start being consequences you can
+reason about. That's the case for sitting through the architecture
+walkthrough that follows.
 
-Replace this paragraph.
+## What Goes Wrong Without It
 
-## What goes wrong without it
+**Hallucination** is not a bug that a future model update will quietly fix —
+it's the direct consequence of an objective that optimizes for likely
+tokens, not true ones. A model will confidently complete a sentence with a
+plausible-sounding fact it never verified, because "plausible" is exactly
+what it was trained to produce. The **context window** is just as
+unforgiving: it's a hard token budget, and once a conversation or a
+retrieved document exceeds it, older content doesn't fade gracefully — it's
+simply gone. An agent that silently drops an instruction from three turns
+ago is usually just out of room.
 
-> The failure it prevents, shown rather than asserted. A concrete situation that
-> goes badly, and how it goes badly.
->
-> This is the paragraph that makes the tutorial worth reading. A reader who has
-> felt the failure will follow you through the mechanics; one who has not will
-> skim. Use a real case if you have one.
+## Where This Understanding Pays Off Most
 
-Replace this paragraph.
-
-## When to reach for it
-
-> The bounds, stated by you rather than discovered by a frustrated reader. What
-> it is good for, and — just as important — when it is the wrong tool.
->
-> A technique with honestly stated limits is more usable than one presented as
-> universal, because the reader can tell whether their situation is in scope.
-
-Replace this paragraph.
+Weights are frozen at inference: the model is not learning from your prompt,
+so anything an agent "remembers" mid-conversation lives only in the context
+window you feed it — this is *why* retrieval and memory systems exist at
+all. Sampling controls (temperature, top-p/top-k) set how deterministic an
+agent's output is, which matters when you need a reproducible eval harness:
+a temperature-0 agent gives repeatable results, a temperature-1.2 agent gives
+a different answer every run.

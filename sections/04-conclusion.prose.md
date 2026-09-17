@@ -2,32 +2,36 @@
 
 <!-- Every `##` becomes one slide. One idea each. -->
 
-## What you can do now
+## What You Can Do Now
 
-> The recap, stated as capability rather than as summary. Not "we covered X" —
-> rather, what the reader can now do that they could not before.
->
-> Keep it to what the tutorial actually delivered. This paragraph and
-> § What this tutorial covers must agree exactly; the panel will check.
+You can now explain what a transformer is and why LLMs are built on one;
+trace a token sequence through a decoder-only transformer layer by layer —
+embedding, positional information, self-attention, feed-forward, residuals,
+normalization; explain how that decoder-only shape relates to the original
+encoder-decoder architecture; and connect architectural facts — a fixed
+context window, frozen weights at inference, stochastic sampling — to the
+behaviors and failure modes an agent built on an LLM will actually exhibit.
 
-Replace this paragraph.
+## Where the Field Is Headed
 
-## Where to go next
+The architecture in this tutorial is stable and shared across most current
+LLMs, but the field keeps changing pieces of it. A few fronts worth knowing
+at a glance: **scaling** — larger models trained on more data keep improving
+capability, for reasons still not fully explained; **long-context** methods
+that push the token budget from thousands of tokens to millions;
+**mixture-of-experts**, where only a fraction of the model's parameters
+activate for a given token; **multimodality**, extending the same
+next-token machinery beyond text to images, audio, and more; and **agentic
+tool use**, where the model's output drives actions in the world, not just
+more text. Each of these is a direct extension of something in this
+tutorial's walkthrough, not an unrelated new idea.
 
-> The next thing to learn, and why it is the next one. Name the specific
-> resource, tool, or topic and say what it adds.
->
-> Order matters more than length. Three pointers in a sensible sequence beat a
-> list of ten a reader has to triage themselves.
+## Where to Go Next
 
-Replace this paragraph.
-
-## Open edges
-
-> What is still unsettled — where the tool is changing, where practice has not
-> converged, where you would not yet give firm advice.
->
-> End on the opening you leave, not on a restatement. A tutorial that admits its
-> edges is more trustworthy than one that implies the topic is finished.
-
-Replace this paragraph.
+For the architecture itself: "Attention Is All You Need" (Vaswani et al.,
+2017) — the paper this tutorial's figures come from. For how a model like
+this becomes a helpful assistant rather than a raw next-token predictor: the
+InstructGPT / RLHF paper. For in-context learning at scale: "Language Models
+are Few-Shot Learners," the GPT-3 paper. And for a from-scratch, hands-on
+walkthrough of everything covered here, in code: Andrej Karpathy's "Let's
+build GPT."

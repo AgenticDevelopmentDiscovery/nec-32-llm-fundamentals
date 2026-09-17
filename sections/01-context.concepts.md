@@ -8,36 +8,54 @@
 
 ## Purpose
 
-Say WHAT the topic is and where it came from, so the reader can hold it in mind
-before being told why it matters or how to use it.
+Say WHAT a transformer is, in plain enough terms that the reader can picture
+it before any argument for why it matters, and name what this tutorial will
+and will not cover.
 
 ## Claims
 
-> The load-bearing assertions of this section, one line each. In a tutorial these
-> are usually definitional: what the thing is, what it is not, what it replaced.
-> If a claim is not here, the reviewers will treat its appearance in the prose as
-> unplanned.
-
-- (claim)
-- (claim)
+- An LLM is, almost always, a Transformer: a neural network trained to
+  predict the next token in a sequence.
+- Text is broken into tokens by a tokenizer before the model ever sees it;
+  the model operates on token ids, not characters or words.
+- Generation is autoregressive: the model outputs a probability distribution
+  over the next token, one token is sampled, appended, and fed back in.
+- There is no symbolic reasoning engine or database lookup inside the model —
+  only a large learned function from token sequences to next-token
+  probabilities.
+- This tutorial's center of mass is the architecture (HOW a transformer
+  processes data); training mechanics, tokenizer internals, and
+  fine-tuning/RLHF/prompting are named but not covered here — each belongs to
+  a different tutorial elsewhere in the course.
 
 ## Decisions
 
-> Why the section reads the way it does. The definition you chose and the one you
-> rejected, how much history you kept and why. This is what stops the team
-> relitigating the same choice every round.
-
-- (decision — and what it was chosen over)
+- Defined the transformer by what it does (next-token prediction over
+  tokens) rather than by its historical motivation (machine translation) —
+  the definition seeds this section; the origin gets two or three sentences,
+  not an argument. Chosen to keep WHAT and WHY from blurring into each other,
+  per the course's WHAT-before-WHY guardrail.
+- Chose to state each out-of-scope item explicitly, one line, rather than
+  stay silent — per the primary author's request that an omission read as
+  deliberate rather than as a gap. Each pointer names which other course
+  tutorial covers it.
 
 ## Open questions
 
-> What you do not know yet. Naming it here is cheap; discovering it in review is not.
-
-- (question)
+- Exact one-line phrasing for each of the three out-of-scope pointers
+  (training mechanics, tokenizer internals, fine-tuning/RLHF/prompting) — and
+  whether the course has settled tutorial names/numbers to point to, or only
+  "covered elsewhere in the course" as a placeholder for now.
+- Whether "Where Transformers Came From" should mention the encoder-decoder
+  origin at all here (one clause, WHAT-level) or leave it entirely to
+  `03-content`'s opening, to avoid duplicating that section's first beat.
 
 ## Not doing
 
-> Scope you have deliberately excluded, so a reviewer does not report it as missing
-> and you do not drift back into it.
-
-- (excluded, and why)
+- Explaining next-token probability sampling mechanics (temperature,
+  top-k/top-p) — teased here only as "a distribution, not a single answer";
+  fully covered where it connects to determinism, in `02-motivation` and the
+  `03-content` demo.
+- Any architecture diagram here — figures are reserved for `03-content`,
+  where the layer-by-layer walkthrough needs them. This section is text-only
+  scene-setting.
