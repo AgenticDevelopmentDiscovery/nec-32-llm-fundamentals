@@ -201,6 +201,162 @@ every stage, ending in a hands-on demo that shows it on a real model.
     got its Final Norm bullet back, worded to make clear it's outside the
     loop ("the only norm that isn't repeated per layer").
 
+- **Figure cleanup pass (2026-09-18), per the primary author: three
+  distinct bugs found and fixed across the `decoder-only-hl-*.svg`
+  horizontal strips and two merged slides.**
+  - **Backward arrows.** Each of the four `decoder-only-hl-*.svg` files had
+    two short connector stubs (from the residual "+" node toward the next
+    box) with their start/end coordinates swapped, so the arrowhead pointed
+    back into the "+" circle instead of forward. Root cause: the "+" circle
+    and the box after it already touch with no real gap, so the connector
+    was geometrically redundant — removed both stubs in all four files
+    rather than redrawing them, since there was never room for a real
+    arrow there.
+  - **The ×N bracket didn't surround anything.** The horizontal strips used
+    a thin dashed pill drawn *underneath* the repeated boxes, not a
+    rectangle enclosing them — inconsistent with `encoder-decoder.svg` and
+    `decoder-only.svg`, both of which correctly draw a full dashed
+    rectangle around the repeated region with the ×N circle at its
+    top-left corner. Redrew the bracket in all four `decoder-only-hl-*.svg`
+    files to match that pattern: one rectangle enclosing Self-Attn through
+    Add (including the residual arcs above them), not a strip below them.
+  - **Two slides ran off the bottom.** `03-content.slidecontent.md`'s
+    merged "The Original Transformer: Encoder-Decoder" (`encoder-decoder.svg`
+    at 62% width) and "From Encoder-Decoder to Decoder-Only"
+    (`decoder-only.svg` at 20% width) both overflowed. `decoder-only.svg`
+    grew substantially taller earlier the same day (words/tokens/position
+    rows, residual arrows, the restored Final Layer Norm), so its old 20%
+    width no longer fit at the new aspect ratio — dropped to 13%.
+    `encoder-decoder.svg` didn't change, but apparently was never re-checked
+    at 62% after the three-bullet text was finalized on that slide —
+    dropped to 34%. Both re-verified by rendering, not estimating.
+  - Audited every other hand-drawn figure (`self-attention.svg`,
+    `agentic-loop.svg`, `embedding-analogy.svg`, `residuals.svg`,
+    `decoder-only.svg`, `encoder-decoder.svg`) arrow-by-arrow for the same
+    backward-arrow pattern — none found elsewhere.
+
+- **Missing Embeddings step restored, and the two still-cramped slides
+  resized (2026-09-18, later the same day), per the primary author: the
+  pipeline diagrams had silently skipped a step.**
+  - **The bug.** Every decoder-stack figure (`decoder-only.svg` and all
+    four `decoder-only-hl-*.svg` strips) went straight from a "Tokens" box
+    to a combined "Token + Position" box — collapsing the embedding lookup
+    into the positional step instead of showing it as its own stage. Fixed
+    everywhere to the correct four-step input pipeline: **Words → Tokens →
+    Embeddings → Embeddings + Position.** `decoder-only.svg`'s viewBox grew
+    (780 → 838) to fit the new box; the four horizontal strips grew wider
+    (890 → 970 viewBox) and moved to an 11-box layout. Re-rendered and
+    visually re-verified all five files, not just the one that changed
+    first.
+  - **The two previously-shrunk slides were now too small to read.**
+    Shrinking `encoder-decoder.svg` and `decoder-only.svg` to 34%/13% width
+    (the prior fix, above) bought back the overflow but made both figures
+    hard to read once actually rendered. Removed the pandoc caption text on
+    both (the attribution/description lines that are baked into the SVGs
+    themselves stay — only the redundant markdown caption was cut) and
+    grew `encoder-decoder.svg` back to 48%, which fits with room to spare.
+    `decoder-only.svg` — tall and narrow, and taller still after the
+    Embeddings fix — didn't fit at any single-column width without either
+    overflowing vertically or shrinking unreadably; moved "From
+    Encoder-Decoder to Decoder-Only" to a two-column layout (bullets left,
+    figure right at 85% of its column), which lets the figure use the
+    slide's full height instead of being width-constrained. Re-rendered
+    every slide the horizontal strips appear on (Tokens → Embeddings,
+    Positional Information, Self-Attention, Feed-Forward/Residuals
+    /Normalization, From the Stack to Next-Token Probabilities) to confirm
+    the wider viewBox introduced no new overflow — none did.
+  - `residuals.svg` (the single zoomed-in "Input from previous layer" detail
+    figure used once in `prose.md`) was left alone — it never showed the
+    input pipeline, so the missing-step bug didn't apply to it.
+    `prose.md`'s "Tokens and Embeddings" section already described the
+    lookup and the positional add as two separate sentences, so needed no
+    text change — the bug was in the diagrams, not the prose.
+
+- **Two follow-up bugs from the caption-removal pass, caught by the primary
+  author on the next look (2026-09-18, same day): a left-aligned figure and
+  a slight vertical overflow.**
+  - **`encoder-decoder.svg` wasn't centered.** Pandoc's `implicit_figures`
+    extension only wraps a standalone image in `\begin{figure}\centering
+    ...\end{figure}` when it has caption text; an image with empty alt text
+    (`![]`) gets emitted as a bare `\includesvg`, which beamer left-aligns.
+    Removing the caption on "The Original Transformer: Encoder-Decoder" (the
+    prior fix) silently cost it its centering. Fixed by wrapping the image
+    in explicit ` ```{=latex}\begin{center}...\end{center}``` ` raw blocks —
+    plain `\begin{center}` text in the markdown doesn't work, since raw
+    LaTeX isn't passed through by pandoc's default markdown reader without
+    the `{=latex}` fenced-block form (the `raw_attribute` extension, on by
+    default).
+  - **`decoder-only.svg` in the two-column layout was clipping its own
+    bottom caption line by a few points.** The image is bound by both
+    `width` and `height=\textheight` (pandoc's svg default), and it was
+    genuinely height-bound, not width-bound — so shrinking the `width`
+    attribute alone (85% → 78% → 68%) had no effect on the actual
+    overflow, since height was already the tighter constraint at every one
+    of those widths. Fixed by adding an explicit `height=85%` attribute
+    alongside `width=78%`, capping the LaTeX height bound below
+    `\textheight` directly instead of trying to reach it indirectly through
+    width. Re-rendered at 200 DPI and visually confirmed all three caption
+    lines now sit fully inside the frame.
+
+- **The four `decoder-only-hl-*.svg` horizontal strips had a duplicated
+  residual add and a missing arrow, both introduced by the 11-box rewrite
+  earlier the same day (2026-09-18), caught by the primary author.**
+  - **Duplicated add.** The rewrite kept the pre-Embeddings labels "Add &
+    Norm" and "Add" on the two post-block boxes, even though each one now
+    sits right after a green "+" circle that already draws the residual
+    add — so the box's own label was re-asserting an operation the diagram
+    had already shown happening. The vertical `decoder-only.svg` never had
+    this problem; it already labeled the first box "Norm" alone and had no
+    box at all after the second "+". Brought the horizontal strips in line
+    with it: renamed "Add & Norm" → "Norm" (the "+" is the add; the box is
+    only the norm), and deleted the second "Add" box outright — after the
+    feed-forward residual there is nothing left to draw, since no norm
+    follows it.
+  - **Missing arrow, and a new one needed.** Two flow arrows were absent:
+    between the Norm box and Feed-Forward (present as a gap in the source
+    with no `<line>` filling it — an oversight in the original 11-box
+    build, not something the box count changed) and, after deleting the
+    "Add" box, between the second "+" circle and Final Norm (previously
+    unnecessary because the "Add" box touched the circle directly; Final
+    Norm doesn't touch it at that spacing, so it needs a real arrow, not a
+    touching edge). Added both.
+  - **Box count dropped from 11 back to 10** with the "Add" box gone,
+    which incidentally returned the strips to the same `890`-ish viewBox
+    width used before the Embeddings box existed (now `910`, to keep a
+    clean gap between the second "+" circle and Final Norm so the ×N
+    bracket has room to close without visually cutting into either). All
+    four highlight ellipses were recomputed for the shifted box positions
+    and re-verified by rendering, not by re-deriving coordinates on paper
+    only — every one of the five affected slides (Tokens → Embeddings,
+    Positional Information, Self-Attention, Feed-Forward/Residuals
+    /Normalization, From the Stack to Next-Token Probabilities) was
+    re-rendered at 150 DPI to confirm no new overflow from the width
+    change.
+
+- **Two small, unrelated visual bugs fixed same day (2026-09-18), caught by
+  the primary author on a later look.**
+  - **`embedding-analogy.svg` axis labels weren't centered.** `.axis-lbl`
+    had no `text-anchor`, so both labels (default left-anchor) drifted off
+    their axis midpoints — "royal" direction sat visibly right of center
+    under the bottom arrow, and "gender" direction (rotated -90°) sat
+    outside the plot frame entirely, past the "queen" label. Added
+    `text-anchor: middle` to the class and re-centered the gender label's
+    rotation pivot on the true vertical midpoint of its arrows (y=119, was
+    125). Re-rendered and confirmed both labels sit on their axes.
+  - **`demo-attention-map.png` showed a "Ġ" before every token label except
+    "The."** This isn't a bug in the figure — it's GPT-2's byte-level BPE
+    tokenizer marking "this token follows a space" with a literal "Ġ"
+    (U+0120) character, which shows on every token here except the
+    sentence-initial "The." `demo/forward_pass.py` was plotting the raw
+    tokenizer output directly. Fixed by stripping "Ġ" from the axis labels
+    only (`display_tokens`), leaving the raw `tokens` list untouched
+    everywhere else (console output, the next-token lookup) since that
+    tokenizer detail is real and worth showing in the text, just not
+    legible as an axis label. Reran the actual model (not hand-edited the
+    PNG) to regenerate `figures/demo-attention-map.png` — same input, same
+    weights, same layer/head, so the data is unchanged; only the labels
+    are clean now.
+
 ## Open questions
 
 - (none outstanding as of 2026-09-18)

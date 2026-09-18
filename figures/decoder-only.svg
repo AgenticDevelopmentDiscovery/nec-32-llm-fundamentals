@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 780" font-family="Helvetica, Arial, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 838" font-family="Helvetica, Arial, sans-serif">
   <defs>
     <marker id="arrow2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
       <path d="M 0 0 L 10 5 L 0 10 z" fill="#1f2937"/>
@@ -23,17 +23,21 @@
 
   <text x="200" y="28" class="lbl" font-size="16" font-weight="600">Decoder-Only Stack</text>
 
-  <!-- input pipeline: words -> tokens -> token+positional embedding -->
+  <!-- input pipeline: words -> tokens -> embeddings -> embeddings + position -->
+  <rect x="90" y="738" width="220" height="34" rx="4" class="io"/>
+  <text x="200" y="759" class="lbl-sm">Words (raw text)</text>
+
+  <line x1="200" y1="738" x2="200" y2="714" class="arr"/>
   <rect x="90" y="680" width="220" height="34" rx="4" class="io"/>
-  <text x="200" y="701" class="lbl-sm">Words (raw text)</text>
+  <text x="200" y="701" class="lbl-sm">Tokens (tokenizer output)</text>
 
   <line x1="200" y1="680" x2="200" y2="656" class="arr"/>
   <rect x="90" y="622" width="220" height="34" rx="4" class="io"/>
-  <text x="200" y="643" class="lbl-sm">Tokens (tokenizer output)</text>
+  <text x="200" y="643" class="lbl-sm">Embeddings</text>
 
   <line x1="200" y1="622" x2="200" y2="598" class="arr"/>
   <rect x="90" y="564" width="220" height="34" rx="4" class="io"/>
-  <text x="200" y="585" class="lbl-sm">Token + Positional Embedding</text>
+  <text x="200" y="585" class="lbl-sm">Embeddings + Position</text>
 
   <!-- self-attention, with residual -->
   <line x1="200" y1="564" x2="200" y2="534" class="arr"/>
@@ -78,7 +82,7 @@
   <line x1="200" y1="104" x2="200" y2="82" class="arr"/>
   <text x="200" y="70" class="lbl-sm" font-weight="600">Next-token probabilities</text>
 
-  <text x="200" y="732" class="cap">Words &#8594; tokens &#8594; embeddings, then the block</text>
-  <text x="200" y="746" class="cap">above repeats &#215;N times. Green arrows are</text>
-  <text x="200" y="760" class="cap">the residual (skip) connections.</text>
+  <text x="200" y="790" class="cap">Words &#8594; tokens &#8594; embeddings &#8594; embeddings + position,</text>
+  <text x="200" y="804" class="cap">then the block above repeats &#215;N times. Green arrows</text>
+  <text x="200" y="818" class="cap">are the residual (skip) connections.</text>
 </svg>

@@ -10,7 +10,7 @@
   <style>
     .pt { fill: #111827; }
     .lbl { font-size: 13px; fill: #111827; font-weight: 600; }
-    .axis-lbl { font-size: 10.5px; fill: #374151; }
+    .axis-lbl { font-size: 10.5px; fill: #374151; text-anchor: middle; }
     .cap { font-size: 11px; fill: #374151; text-anchor: middle; }
     .royal { stroke: #2563eb; stroke-width: 2; fill: none; marker-end: url(#arrowea1); }
     .gender { stroke: #c2410c; stroke-width: 2; stroke-dasharray: 5 4; fill: none; marker-end: url(#arrowea2); }
@@ -41,7 +41,7 @@
   <text x="308" y="50" class="lbl">queen</text>
 
   <text x="195" y="192" class="axis-lbl" fill="#2563eb">"royal" direction</text>
-  <text x="348" y="125" class="axis-lbl" fill="#c2410c" transform="rotate(-90 348 125)">"gender" direction</text>
+  <text x="345" y="119" class="axis-lbl" fill="#c2410c" transform="rotate(-90 345 119)">"gender" direction</text>
 
   <text x="210" y="228" class="cap" font-weight="600">king &#8722; man + woman &#8776; queen</text>
   <text x="210" y="242" class="cap">the same relationship is the same vector, everywhere in the space.</text>

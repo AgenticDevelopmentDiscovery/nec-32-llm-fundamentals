@@ -65,12 +65,17 @@ def main():
     layer, head = 4, 3
     attn = out.attentions[layer][0, head].numpy()  # (tokens, tokens)
 
+    # GPT-2's byte-level BPE marks a token that follows a space with a
+    # leading "Ġ" (U+0120) -- strip it for display; it's a tokenizer
+    # artifact, not part of the word.
+    display_tokens = [tok.replace("Ġ", "") for tok in tokens]
+
     fig, ax = plt.subplots(figsize=(6, 5))
     im = ax.imshow(attn, cmap="viridis")
     ax.set_xticks(range(n_tokens))
     ax.set_yticks(range(n_tokens))
-    ax.set_xticklabels(tokens, rotation=90)
-    ax.set_yticklabels(tokens)
+    ax.set_xticklabels(display_tokens, rotation=90)
+    ax.set_yticklabels(display_tokens)
     ax.set_xlabel("attending to (key)")
     ax.set_ylabel("query token")
     ax.set_title(f"GPT-2 small — layer {layer + 1}, head {head + 1} self-attention")

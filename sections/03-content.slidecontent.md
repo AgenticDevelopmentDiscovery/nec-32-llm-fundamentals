@@ -6,16 +6,27 @@
   - **Encoder** — reads the whole input, builds a representation
   - **Decoder** — generates output one token at a time
 
-![Two stacks: encoder reads the input; decoder generates output, attending to its own prior output and — via cross-attention — to the encoder. Adapted from Vaswani et al. (2017), Figure 1.](figures/encoder-decoder.svg){#fig:sc-encoder-decoder width=62%}
+```{=latex}
+\begin{center}
+```
+![](figures/encoder-decoder.svg){#fig:sc-encoder-decoder width=48%}
+```{=latex}
+\end{center}
+```
 
 ## From Encoder-Decoder to Decoder-Only
 
+:::: {.columns}
+::: {.column width="56%"}
 - Most current LLMs (GPT family, etc.) keep **only the decoder**
 - Drop: the encoder, cross-attention
 - No separate input to encode — trained purely to predict the next token
   over its own input
-
-![The decoder-only stack — the anchor diagram for the rest of this section.](figures/decoder-only.svg){#fig:sc-decoder-only width=20%}
+:::
+::: {.column width="44%"}
+![](figures/decoder-only.svg){#fig:sc-decoder-only width=78% height=85%}
+:::
+::::
 
 ## Tokens → Embeddings
 
