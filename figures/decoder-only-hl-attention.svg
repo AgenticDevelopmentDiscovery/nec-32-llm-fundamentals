@@ -69,14 +69,18 @@
   <circle cx="346" cy="18" r="10" fill="#ffffff" stroke="#111827" stroke-width="1.2"/>
   <text x="346" y="21" class="lbl-sm" font-weight="600">&#215;N</text>
 
-  <!-- residual 1: around Self-Attn, into the "+" before Norm -->
-  <path d="M 356 82 C 384 30, 409 30, 433 88" class="res-arr"/>
+  <!-- residual 1: branches off the incoming arrow before Self-Attn (the
+       true residual input), around Self-Attn, into the "+" before Norm -->
+  <circle cx="348" cy="95" r="2.2" fill="#166534"/>
+  <path d="M 348 95 C 348 30, 433 30, 433 87" class="res-arr"/>
   <line x1="426" y1="95" x2="431" y2="95" class="arr"/>
   <circle cx="433" cy="95" r="8" class="sum"/>
   <text x="433" y="98" class="lbl-sm" fill="#166534" font-weight="600">+</text>
 
-  <!-- residual 2: around Feed-Forward, into the "+" — no norm follows -->
-  <path d="M 524 82 C 552 30, 577 30, 601 88" class="res-arr"/>
+  <!-- residual 2: branches off the incoming arrow before Feed-Forward,
+       around Feed-Forward, into the "+" — no norm follows -->
+  <circle cx="516" cy="95" r="2.2" fill="#166534"/>
+  <path d="M 516 95 C 516 30, 601 30, 601 87" class="res-arr"/>
   <line x1="594" y1="95" x2="599" y2="95" class="arr"/>
   <circle cx="601" cy="95" r="8" class="sum"/>
   <text x="601" y="98" class="lbl-sm" fill="#166534" font-weight="600">+</text>

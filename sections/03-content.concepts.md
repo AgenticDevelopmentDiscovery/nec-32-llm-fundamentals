@@ -357,6 +357,49 @@ every stage, ending in a hands-on demo that shows it on a real model.
     weights, same layer/head, so the data is unchanged; only the labels
     are clean now.
 
+- **Round 3 docket, closed out (2026-09-18): all seven items acted on**,
+  plus one figure fix outside the docket, per the primary author.
+  - Feed-Forward/Residuals/Normalization slide: cut the fourth bullet into
+    the residual bullet; added, then (per the primary author, next look)
+    trimmed back out, a clause on the Normalization bullet stating
+    self-attention-only norming — left as a talking point, not slide text.
+  - Added the `topic.md`-promised temperature callback to the demo, both
+    registers.
+  - Corrected `02-motivation.concepts.md`'s wordsmith-decision entry to
+    state it was `slidecontent.md`-only and later superseded, rather than
+    rewriting `prose.md`'s independent "folklore" sentence, which was
+    never in scope of that edit.
+  - Reconciled "softmax" into `prose.md` (linear layer + softmax), matching
+    the term already on the slide and already labeled in the figures.
+  - Fixed the dangling "this mechanism" pronoun in `02-motivation.prose.md`
+    by naming the referent directly.
+  - Added a transition into the layer-by-layer walkthrough at the top of
+    "Tokens and Embeddings" — expanded per the primary author beyond a bare
+    signpost into an explicit words→tokens step ("the collection of words
+    is first turned into tokens..."), closing a real gap: the prose had
+    jumped straight to "every token id is looked up" without ever saying
+    how raw text becomes tokens in the first place, unlike the figures,
+    which already showed a distinct Tokens box.
+  - Reworded "agentic tool use" in `04-conclusion` (both registers) to
+    "autonomous, multi-step tool use," since `02-motivation` already
+    establishes agentic-systems-as-action-taking-LLM as the tutorial's
+    settled premise, not a field frontier.
+  - **Residual arc redesign in all four `decoder-only-hl-*.svg` strips
+    (not a docket item — raised directly by the primary author after
+    looking at the deck).** Two passes. First: the arcs started at a point
+    on the source box's *left edge*, mid-height, so the curve visibly cut
+    across the box's own top-left corner before escaping upward — moved
+    the start to the box's top edge instead. The primary author caught
+    that this was still wrong on the next look: architecturally, a
+    residual carries forward the block's *input*, so the branch point
+    belongs on the incoming flow arrow, before the block, not on the block
+    itself. Final fix: each arc now branches from a small marked dot on
+    the arrow feeding into its block (before Self-Attn, before
+    Feed-Forward), rises with a vertical tangent, arcs over the block, and
+    descends with a vertical tangent into the "+" node — a symmetric,
+    clean bridge shape, verified at both zoomed-in and actual deck
+    resolution.
+
 ## Open questions
 
 - (none outstanding as of 2026-09-18)
