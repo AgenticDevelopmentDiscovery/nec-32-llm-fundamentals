@@ -31,7 +31,13 @@ understanding pays off most.
   a new figure (`figures/agentic-loop.svg`: LLM decides → action → environment
   → observes result → back to LLM). Placed first, ahead of the next-token-
   predictor fact, so the reader gets the agentic-systems framing before the
-  architecture fact that explains it.
+  architecture fact that explains it. Added to `slidecontent.md` only at the
+  time — a cross-register audit (2026-09-18, later the same day) caught that
+  `prose.md` never got the claim, an unmarked gap unlike every other
+  slide/prose difference this section logs, which all say explicitly that
+  `prose.md` was intentionally left alone. Added one sentence to the top of
+  "Why Architecture Understanding Matters for Agents," ahead of the
+  next-token-predictor material, mirroring the slide's placement.
 
 ## Decisions
 
