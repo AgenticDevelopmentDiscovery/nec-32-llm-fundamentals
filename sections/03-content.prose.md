@@ -73,22 +73,27 @@ every position. Two things hold a deep stack of these layers together, and
 Figure 4 draws both: a **residual connection** adds each block's input back
 to its output, so information has a direct path through the whole stack,
 bypassing self-attention and feed-forward in turn; and **normalization**
-keeps the scale of the numbers flowing through it stable, layer after layer.
-Without both, stacking more than a handful of layers stops being workable at
-all — it's what makes a stack twelve or a hundred layers deep something you
-can actually build, rather than something that only works on paper.
+keeps the scale of the numbers flowing through it stable. Only one norm per
+layer, right after the self-attention residual — the feed-forward residual
+adds and moves straight on, with no norm of its own before the block exits.
+Without the residual connections, stacking more than a handful of layers
+stops being workable at all — it's what makes a stack twelve or a hundred
+layers deep something you can actually build, rather than something that
+only works on paper.
 
-![One full decoder block: self-attention and feed-forward, each followed by a residual connection (green) and normalization — the unit that Figure 2's "×N" repeats.](figures/residuals.svg){#fig:residuals width=52%}
+![One full decoder block: self-attention and feed-forward, each followed by a residual connection (green) — but only self-attention's is followed by a norm. This is the unit that Figure 2's "×N" repeats.](figures/residuals.svg){#fig:residuals width=52%}
 
 ## Stacking Layers to a Next-Token Distribution
 
 A decoder-only transformer is this block — pictured whole in Figure 4 —
 repeated N times (GPT-2 small, used in the demo below, stacks N=12 of them),
 each layer building a more abstract representation of the sequence than the
-last. After the final layer, one more projection maps each position's vector
-onto the size of the vocabulary and turns it into a probability distribution
-over what token comes next — not a single answer, but odds across the entire
-vocabulary. Sampling from that distribution is what produces the next token.
+last. After the final layer, one **final layer norm** — the only norm that
+isn't repeated per layer — stabilizes the output, and one more projection
+maps each position's vector onto the size of the vocabulary, turning it into
+a probability distribution over what token comes next: not a single answer,
+but odds across the entire vocabulary. Sampling from that distribution is
+what produces the next token.
 
 ## Demo: A Forward Pass, Layer by Layer
 

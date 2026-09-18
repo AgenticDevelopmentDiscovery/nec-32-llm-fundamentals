@@ -120,9 +120,90 @@ every stage, ending in a hands-on demo that shows it on a real model.
   through the whole stack" / "stops being buildable at all," which makes the
   same claim without assuming the reader knows what a gradient is.
 
+- **Slide-by-slide pass with the primary author (2026-09-18) — `slidecontent.md`
+  only, `prose.md` untouched.** `slidecontent.md` went from 14 `##` units to
+  11. Changes, in order:
+  - Merged "The Encoder-Decoder Stack, Visualized" into "The Original
+    Transformer: Encoder-Decoder" (text + figure, one slide) and cut the
+    bullet naming cross-attention — the figure's own caption already names
+    it, so nothing was lost.
+  - Merged "The Decoder-Only Stack — the Anchor Diagram" into "From
+    Encoder-Decoder to Decoder-Only" the same way, cutting two trailing
+    bullets ("trains on any text..." / "why decoder-only scaled") as
+    redundant with what's already said. The anchor figure had to shrink to
+    20% width to fit alongside three bullets, and its own caption had to be
+    cut drastically (one line, not the original multi-clause one) — a long
+    caption wraps to *more* lines at a narrow image width, which cost more
+    vertical space than the image itself, not less.
+  - Added `figures/embedding-analogy.svg` (the classic king − man + woman ≈
+    queen parallelogram) to Tokens → Embeddings, illustrating "comes to
+    encode meaning as training proceeds" concretely.
+  - Removed "The Decoder Block, Visualized" (`figures/residuals.svg` on its
+    own slide) — judged as redundant once the anchor strip's residual arcs
+    (below) made the same point in-line on the Self-Attention and
+    Feed-Forward slides. `residuals.svg` stays as Figure 4 in `prose.md`,
+    unaffected.
+  - Removed "Stacking to a Next-Token Distribution" — per the primary
+    author, the slide was mostly filler around one real bullet. Replaced
+    with a new slide, "From the Stack to Next-Token Probabilities," built
+    specifically around what the old slide gestured at but didn't earn:
+    the final norm, the Linear+Softmax projection, and the resulting
+    distribution.
+  - **`figures/decoder-only.svg` and all `figures/decoder-only-hl-*.svg`
+    redesigned (2026-09-18), per the primary author:** the input stage now
+    shows Words → Tokens → Token+Positional Embedding as three boxes
+    instead of one, and green residual (skip) arrows with "+" merge nodes
+    are drawn explicitly around Self-Attention and Feed-Forward in every
+    variant, not just in the now-removed `residuals.svg` detail slide. The
+    vertical anchor diagram dropped its ghosted "Encoder/Cross-Attention
+    (removed)" annotations to make room — that context is already
+    established on the prior slide. `decoder-only-hl-stacking.svg` (no
+    longer referenced after the Stacking slide was cut) was deleted;
+    `decoder-only-hl-output.svg` was added, highlighting Linear+Softmax and
+    the next-token output for the new final-stages slide.
+  - Removed the separate "Final Layer Norm" box from every figure, on the
+    theory that it was just the last Add & Norm from the ×N repeat —
+    **superseded same day, see below.**
+  - Wordsmithed "Tokens → Embeddings" bullets and other minor phrasing
+    across several slides in response to direct feedback; no other
+    structural changes.
+
+- **Correction (2026-09-18, later the same day), per the primary author
+  after checking the GPT paper: the entry above was backwards.** There IS a
+  final layer norm outside the ×N loop — that part was right to remove
+  Norm from, just not the box the removal targeted. What's actually true:
+  each repeated block has exactly **one** norm, immediately after the
+  self-attention residual; the feed-forward residual adds and the block
+  exits with no norm of its own. The separate Final Layer Norm, after the
+  last block and before Linear+Softmax, is real and outside the loop.
+  - `figures/decoder-only.svg`: restored the "Final Layer Norm" box between
+    the ×N bracket and Linear+Softmax; removed the label from the *second*
+    "Add & Norm" inside the loop, which is now just "Add" — its "+" node
+    connects straight up past the bracket boundary to Final Layer Norm. The
+    first "Add & Norm" (after self-attention) is untouched.
+  - All four `figures/decoder-only-hl-*.svg` variants: same fix — box 6
+    relabeled "Add" (was "Add & Norm"), a "Final Norm" box reinstated
+    before Linear+Softmax, viewBox widened back to 890 to fit the restored
+    box. `decoder-only-hl-output.svg`'s highlight ellipse now spans Final
+    Norm + Linear+Softmax + Next-token (three boxes, not two).
+  - `figures/residuals.svg`: removed its second "Norm" box the same way —
+    Feed-Forward's residual "+" now connects straight to the block's
+    output. Caption updated to say only self-attention's residual is
+    followed by a norm.
+  - `prose.md` updated to match, in both places that made the old (wrong)
+    claim: the Feed-Forward/Residuals/Normalization paragraph now says
+    explicitly "only one norm per layer... the feed-forward residual adds
+    and moves straight on"; the Stacking Layers paragraph now names the
+    **final layer norm** as a real, distinct step after the last block and
+    before the Linear+Softmax projection. Figure 4's (`residuals.svg`)
+    caption in `prose.md` corrected the same way.
+  - `slidecontent.md`'s "From the Stack to Next-Token Probabilities" slide
+    got its Final Norm bullet back, worded to make clear it's outside the
+    loop ("the only norm that isn't repeated per layer").
+
 ## Open questions
 
-- (none outstanding as of 2026-09-17)
+- (none outstanding as of 2026-09-18)
 
 ## Not doing
 

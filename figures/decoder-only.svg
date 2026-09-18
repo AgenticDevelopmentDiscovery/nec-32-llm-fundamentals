@@ -1,7 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 620" font-family="Helvetica, Arial, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 780" font-family="Helvetica, Arial, sans-serif">
   <defs>
     <marker id="arrow2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
       <path d="M 0 0 L 10 5 L 0 10 z" fill="#1f2937"/>
+    </marker>
+    <marker id="arrow2r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#166534"/>
     </marker>
   </defs>
 
@@ -9,64 +12,73 @@
     .block { fill: #eef2ff; stroke: #3730a3; stroke-width: 1.5; }
     .addnorm { fill: #fef9c3; stroke: #92400e; stroke-width: 1.2; }
     .io { fill: #f3f4f6; stroke: #374151; stroke-width: 1.2; }
-    .removed { fill: #fee2e2; stroke: #991b1b; stroke-width: 1.2; stroke-dasharray: 3 3; }
     .stacklabel { fill: #ffffff; stroke: #111827; stroke-width: 1.5; }
+    .sum { fill: #ffffff; stroke: #166534; stroke-width: 1.4; }
     .lbl { font-size: 13px; fill: #111827; text-anchor: middle; }
     .lbl-sm { font-size: 11px; fill: #111827; text-anchor: middle; }
-    .lbl-strike { font-size: 11px; fill: #991b1b; text-anchor: middle; }
     .cap { font-size: 12px; fill: #374151; text-anchor: middle; }
     .arr { stroke: #1f2937; stroke-width: 1.6; fill: none; marker-end: url(#arrow2); }
+    .res-arr { stroke: #166534; stroke-width: 1.8; fill: none; marker-end: url(#arrow2r); }
   </style>
 
-  <text x="280" y="24" class="lbl" font-size="16" font-weight="600">Decoder-only: one stack, no encoder</text>
-  <text x="180" y="52" class="lbl" font-weight="600">Decoder-only stack</text>
+  <text x="200" y="28" class="lbl" font-size="16" font-weight="600">Decoder-Only Stack</text>
 
-  <!-- removed encoder + cross-attention, ghosted for context -->
-  <rect x="380" y="330" width="150" height="40" rx="4" class="removed"/>
-  <text x="455" y="346" class="lbl-strike">Encoder</text>
-  <text x="455" y="360" class="lbl-strike">(removed)</text>
-  <rect x="380" y="230" width="150" height="40" rx="4" class="removed"/>
-  <text x="455" y="246" class="lbl-strike">Cross-Attention</text>
-  <text x="455" y="260" class="lbl-strike">(removed)</text>
-  <line x1="380" y1="250" x2="330" y2="250" stroke="#991b1b" stroke-width="1.2" stroke-dasharray="3 3"/>
+  <!-- input pipeline: words -> tokens -> token+positional embedding -->
+  <rect x="90" y="680" width="220" height="34" rx="4" class="io"/>
+  <text x="200" y="701" class="lbl-sm">Words (raw text)</text>
 
-  <!-- main decoder-only stack -->
-  <rect x="70" y="530" width="220" height="34" rx="4" class="io"/>
-  <text x="180" y="551" class="lbl-sm">Input tokens + position</text>
+  <line x1="200" y1="680" x2="200" y2="656" class="arr"/>
+  <rect x="90" y="622" width="220" height="34" rx="4" class="io"/>
+  <text x="200" y="643" class="lbl-sm">Tokens (tokenizer output)</text>
 
-  <line x1="180" y1="530" x2="180" y2="500" class="arr"/>
-  <rect x="70" y="450" width="220" height="50" rx="4" class="block"/>
-  <text x="180" y="471" class="lbl-sm">Masked Self-Attention</text>
-  <text x="180" y="488" class="lbl-sm">(multiple heads, in parallel)</text>
+  <line x1="200" y1="622" x2="200" y2="598" class="arr"/>
+  <rect x="90" y="564" width="220" height="34" rx="4" class="io"/>
+  <text x="200" y="585" class="lbl-sm">Token + Positional Embedding</text>
 
-  <line x1="180" y1="450" x2="180" y2="430" class="arr"/>
-  <rect x="100" y="408" width="160" height="22" rx="3" class="addnorm"/>
-  <text x="180" y="423" class="lbl-sm">Add &amp; Norm</text>
+  <!-- self-attention, with residual -->
+  <line x1="200" y1="564" x2="200" y2="534" class="arr"/>
+  <rect x="90" y="484" width="220" height="50" rx="4" class="block"/>
+  <text x="200" y="505" class="lbl-sm">Masked Self-Attention</text>
+  <text x="200" y="521" class="lbl-sm">(multiple heads, in parallel)</text>
 
-  <line x1="180" y1="408" x2="180" y2="384" class="arr"/>
-  <rect x="70" y="340" width="220" height="44" rx="4" class="block"/>
-  <text x="180" y="366" class="lbl-sm">Feed-Forward</text>
+  <line x1="200" y1="484" x2="200" y2="466" class="arr"/>
+  <circle cx="200" cy="450" r="15" class="sum"/>
+  <text x="200" y="455" class="lbl-sm" fill="#166534" font-weight="600">+</text>
+  <path d="M 310 564 C 360 564, 360 450, 218 450" class="res-arr"/>
 
-  <line x1="180" y1="340" x2="180" y2="320" class="arr"/>
-  <rect x="100" y="298" width="160" height="22" rx="3" class="addnorm"/>
-  <text x="180" y="313" class="lbl-sm">Add &amp; Norm</text>
+  <line x1="200" y1="434" x2="200" y2="410" class="arr"/>
+  <rect x="120" y="388" width="160" height="22" rx="3" class="addnorm"/>
+  <text x="200" y="403" class="lbl-sm">Norm</text>
 
-  <!-- N x bracket -->
-  <rect x="46" y="292" width="270" height="214" rx="8" fill="none" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4 3"/>
-  <circle cx="46" cy="292" r="14" class="stacklabel"/>
-  <text x="46" y="297" class="lbl-sm" font-weight="600">&#215;N</text>
+  <!-- feed-forward, with residual -->
+  <line x1="200" y1="388" x2="200" y2="362" class="arr"/>
+  <rect x="90" y="318" width="220" height="44" rx="4" class="block"/>
+  <text x="200" y="344" class="lbl-sm">Feed-Forward</text>
 
-  <line x1="180" y1="292" x2="180" y2="268" class="arr"/>
-  <rect x="70" y="234" width="220" height="30" rx="4" class="io"/>
-  <text x="180" y="254" class="lbl-sm">Final Layer Norm</text>
+  <line x1="200" y1="318" x2="200" y2="300" class="arr"/>
+  <circle cx="200" cy="284" r="15" class="sum"/>
+  <text x="200" y="289" class="lbl-sm" fill="#166534" font-weight="600">+</text>
+  <path d="M 280 388 C 355 388, 355 284, 218 284" class="res-arr"/>
 
-  <line x1="180" y1="234" x2="180" y2="212" class="arr"/>
-  <rect x="70" y="180" width="220" height="30" rx="4" class="io"/>
-  <text x="180" y="200" class="lbl-sm">Linear + Softmax</text>
+  <!-- ×N bracket around the repeated block — note: no norm here, the block
+       exits right after the residual add. Only one norm per repeat (after
+       self-attention); the final norm below is outside the loop. -->
+  <rect x="66" y="216" width="290" height="374" rx="10" fill="none" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4 3"/>
+  <circle cx="66" cy="216" r="15" class="stacklabel"/>
+  <text x="66" y="221" class="lbl-sm" font-weight="600">&#215;N</text>
 
-  <line x1="180" y1="180" x2="180" y2="158" class="arr"/>
-  <text x="180" y="146" class="lbl-sm" font-weight="600">Next-token probabilities</text>
+  <line x1="200" y1="268" x2="200" y2="192" class="arr"/>
+  <rect x="90" y="158" width="220" height="30" rx="4" class="io"/>
+  <text x="200" y="178" class="lbl-sm">Final Layer Norm</text>
 
-  <text x="280" y="600" class="cap">Decoder-only architecture used by most current LLMs (e.g. the GPT family) &#8212;</text>
-  <text x="280" y="614" class="cap">the encoder and cross-attention from Vaswani et al. (2017) are removed; everything else repeats.</text>
+  <line x1="200" y1="158" x2="200" y2="136" class="arr"/>
+  <rect x="90" y="104" width="220" height="30" rx="4" class="io"/>
+  <text x="200" y="124" class="lbl-sm">Linear + Softmax</text>
+
+  <line x1="200" y1="104" x2="200" y2="82" class="arr"/>
+  <text x="200" y="70" class="lbl-sm" font-weight="600">Next-token probabilities</text>
+
+  <text x="200" y="732" class="cap">Words &#8594; tokens &#8594; embeddings, then the block</text>
+  <text x="200" y="746" class="cap">above repeats &#215;N times. Green arrows are</text>
+  <text x="200" y="760" class="cap">the residual (skip) connections.</text>
 </svg>

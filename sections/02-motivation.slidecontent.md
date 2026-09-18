@@ -1,40 +1,17 @@
 ## Why This Matters for Agents
 
-- LLM = next-token predictor, fixed context window, frozen weights
-- Once you know that, your levers stop being folklore:
-  - context engineering
-  - grounding
-  - prompt design
-  - sampling
-- Everything below is a *consequence* of the mechanism, not a separate rule
-  to memorize
+- **Agentic systems = LLM + action-taking** — the LLM orchestrates, because
+  it's a next-token predictor with a fixed context window and frozen weights
 
-## Hallucination: Confident, Not Correct
+![Agentic system = LLM + action-taking: the LLM decides, the system acts in the world, results feed back in — the LLM orchestrates the loop.](figures/agentic-loop.svg){#fig:sc-agentic-loop width=48%}
 
-- Not a bug a model update quietly fixes
-- Direct consequence of the training objective: **likely tokens, not true
-  ones**
-- A model completes a sentence with a plausible fact it never verified —
-  because "plausible" is what it optimizes for
+## The Levers This Explains
 
-## The Context Window: A Hard Budget
-
-- Fixed token budget — not a soft limit
-- Once a conversation exceeds it, older content is **gone**, not faded
-- Symptom: agent silently drops an instruction from three turns ago
-- → it's just out of room
-
-## Frozen Weights → Why Retrieval Exists
-
-- Weights don't change at inference — the model learns nothing from your
-  prompt
-- Everything an agent "remembers" mid-conversation = what's in the context
-  window, full stop
-- This is *why* retrieval and memory systems exist
-
-## Sampling and Reproducibility
-
-- Temperature / top-p / top-k control how deterministic output is
-- Temperature 0 → repeatable results (good for eval harnesses)
-- Temperature 1.2 → different answer every run
-- Matters directly for anyone building reproducible evals
+- **Hallucination**: optimizes for likely tokens, not true ones — confidently
+  wrong by design, not by bug
+- **Context window**: a hard budget — once exceeded, older content is gone,
+  not faded
+- **Frozen weights**: nothing is learned from your prompt — this is *why*
+  retrieval and memory exist
+- **Sampling**: temperature controls determinism — critical for reproducible
+  evals

@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 250" font-family="Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arrowea1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="arrowea2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#c2410c"/>
+    </marker>
+  </defs>
+  <style>
+    .pt { fill: #111827; }
+    .lbl { font-size: 13px; fill: #111827; font-weight: 600; }
+    .axis-lbl { font-size: 10.5px; fill: #374151; }
+    .cap { font-size: 11px; fill: #374151; text-anchor: middle; }
+    .royal { stroke: #2563eb; stroke-width: 2; fill: none; marker-end: url(#arrowea1); }
+    .gender { stroke: #c2410c; stroke-width: 2; stroke-dasharray: 5 4; fill: none; marker-end: url(#arrowea2); }
+  </style>
+
+  <!-- faint plot frame -->
+  <rect x="30" y="20" width="360" height="180" fill="none" stroke="#e5e7eb" stroke-width="1"/>
+
+  <!-- royal-axis arrows: man->king, woman->queen -->
+  <line x1="90" y1="170" x2="300" y2="170" class="royal"/>
+  <line x1="90" y1="60" x2="300" y2="60" class="royal"/>
+
+  <!-- gender-axis arrows: man->woman, king->queen -->
+  <line x1="90" y1="170" x2="90" y2="68" class="gender"/>
+  <line x1="300" y1="170" x2="300" y2="68" class="gender"/>
+
+  <!-- points -->
+  <circle cx="90" cy="170" r="4" class="pt"/>
+  <text x="98" y="185" class="lbl">man</text>
+
+  <circle cx="300" cy="170" r="4" class="pt"/>
+  <text x="308" y="185" class="lbl">king</text>
+
+  <circle cx="90" cy="60" r="4" class="pt"/>
+  <text x="98" y="50" class="lbl">woman</text>
+
+  <circle cx="300" cy="60" r="4" class="pt"/>
+  <text x="308" y="50" class="lbl">queen</text>
+
+  <text x="195" y="192" class="axis-lbl" fill="#2563eb">"royal" direction</text>
+  <text x="348" y="125" class="axis-lbl" fill="#c2410c" transform="rotate(-90 348 125)">"gender" direction</text>
+
+  <text x="210" y="228" class="cap" font-weight="600">king &#8722; man + woman &#8776; queen</text>
+  <text x="210" y="242" class="cap">the same relationship is the same vector, everywhere in the space.</text>
+</svg>

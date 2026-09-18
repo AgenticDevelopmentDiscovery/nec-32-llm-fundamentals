@@ -26,6 +26,12 @@ understanding pays off most.
 - A reader who understands the mechanism can reason about why context
   engineering, grounding, and prompt design work, instead of treating the
   model as a black box to be prompted by trial and error.
+- **Agentic systems = LLM + action-taking; the LLM is the orchestrator**
+  (added 2026-09-18, per the primary author) — a new claim, illustrated with
+  a new figure (`figures/agentic-loop.svg`: LLM decides → action → environment
+  → observes result → back to LLM). Placed first, ahead of the next-token-
+  predictor fact, so the reader gets the agentic-systems framing before the
+  architecture fact that explains it.
 
 ## Decisions
 
@@ -60,6 +66,20 @@ understanding pays off most.
   `slidecontent.md` keeps one idea per slide.
 - `slidecontent.md` has no H1 (2026-09-17, per the primary author) — see
   `topic.md` Decisions for the section-divider-slide removal this was for.
+- **`slidecontent.md` consolidated from 5 slides to 2 (2026-09-18), per the
+  primary author, to buy back presentation time.** "Why This Matters for
+  Agents" now carries just the agentic-systems + next-token-predictor claim
+  and the agentic-loop figure; "The Levers This Explains" carries the four
+  one-line consequences (hallucination, context window, frozen weights,
+  sampling) that used to each have their own slide. `prose.md` is
+  untouched — this consolidation is presentation-only; the document keeps
+  its fuller 3-subsection treatment.
+- Wordsmithed the levers bullet through several passes (2026-09-18): "stop
+  being folklore" → "stop being guesswork" → final: "these levers make
+  sense instead of feeling arbitrary." The primary author's stated intent:
+  once you understand the next-token-predictor mechanism, the important
+  parts are more clearly understood — not just "no longer guesswork," but
+  positively clear.
 
 ## Open questions
 

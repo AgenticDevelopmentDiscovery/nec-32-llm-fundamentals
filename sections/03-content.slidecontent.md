@@ -5,12 +5,8 @@
 - Two stacks:
   - **Encoder** — reads the whole input, builds a representation
   - **Decoder** — generates output one token at a time
-- Decoder attends to two things: its own prior output, and the encoder's
-  representation (**cross-attention**)
 
-## The Encoder-Decoder Stack
-
-![Two stacks: encoder reads the input; decoder generates output, attending to its own prior output and — via cross-attention — to the encoder. Adapted from Vaswani et al. (2017), Figure 1.](figures/encoder-decoder.svg){#fig:sc-encoder-decoder width=80%}
+![Two stacks: encoder reads the input; decoder generates output, attending to its own prior output and — via cross-attention — to the encoder. Adapted from Vaswani et al. (2017), Figure 1.](figures/encoder-decoder.svg){#fig:sc-encoder-decoder width=62%}
 
 ## From Encoder-Decoder to Decoder-Only
 
@@ -18,21 +14,17 @@
 - Drop: the encoder, cross-attention
 - No separate input to encode — trained purely to predict the next token
   over its own input
-- One stack instead of two → trains on *any* text, not just paired
-  source/target
-- → this is why decoder-only is what scaled
 
-## The Decoder-Only Stack — the Anchor Diagram
-
-![A decoder-only stack, repeated N times. Everything that follows in this section is one piece of this picture — self-attention, feed-forward, residuals/norm, and the final projection are all inside the "×N" block.](figures/decoder-only.svg){#fig:sc-decoder-only width=48%}
+![The decoder-only stack — the anchor diagram for the rest of this section.](figures/decoder-only.svg){#fig:sc-decoder-only width=20%}
 
 ## Tokens → Embeddings
 
 - Token id → lookup in **embedding table** → vector
-- Starts arbitrary, comes to encode meaning as training proceeds
-- Everything downstream happens to these vectors — one per position
+- Comes to encode meaning as training proceeds — the classic example:
 
-![Where we are: the input, before the first layer.](figures/decoder-only-hl-input.svg){#fig:sc-hl-input width=92%}
+![king - man + woman is close to queen.](figures/embedding-analogy.svg){#fig:sc-embedding-analogy width=26%}
+
+![Where we are: the input, before the first layer.](figures/decoder-only-hl-input.svg){#fig:sc-hl-input width=78%}
 
 ## Positional Information
 
@@ -69,20 +61,16 @@
 
 ![Where we are: the second block inside the ×N stack.](figures/decoder-only-hl-feedforward.svg){#fig:sc-hl-feedforward width=92%}
 
-## The Decoder Block, Visualized
+## From the Stack to Next-Token Probabilities
 
-![One full decoder block: self-attention and feed-forward, each followed by a residual connection (green) and normalization — the unit that the decoder-only stack's "×N" repeats.](figures/residuals.svg){#fig:sc-residuals width=42%}
+- After N layers (GPT-2 small: N = 12), one **Final Norm** — outside the
+  loop, the only norm that isn't repeated per layer
+- **Linear + Softmax** projects each position's vector onto the
+  vocabulary — turning it into a probability distribution
+- Output: odds over every possible next token, not a single answer —
+  sampling is what picks one
 
-## Stacking to a Next-Token Distribution
-
-- The block just pictured, repeated ×N — each layer builds a more
-  abstract representation
-- GPT-2 small: N = 12
-- Final layer → one projection → probability distribution over the
-  **entire vocabulary**
-- Not a single answer — odds. Sampling picks the next token.
-
-![Where we are: this whole block, repeated ×N.](figures/decoder-only-hl-stacking.svg){#fig:sc-hl-stacking width=92%}
+![Where we are: one final norm, then the projection to the vocabulary.](figures/decoder-only-hl-output.svg){#fig:sc-hl-output width=92%}
 
 ## Demo: A Forward Pass, Layer by Layer
 

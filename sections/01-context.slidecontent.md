@@ -22,7 +22,7 @@
   processes data, layer by layer → **What's next** in the field
 - By the end: trace a token through the architecture, explain *why* an
   agent behaves the way it does
-- Not covered here (see the other tutorials in this course):
+- Not covered here (see the other materials from this course):
   - how the weights are trained
   - how the tokenizer is built
   - fine-tuning, RLHF, prompting technique
