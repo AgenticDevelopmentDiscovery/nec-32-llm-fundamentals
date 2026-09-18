@@ -21,10 +21,11 @@ capability, for reasons still not fully explained; **long-context** methods
 that push the token budget from thousands of tokens to millions;
 **mixture-of-experts**, where only a fraction of the model's parameters
 activate for a given token; **multimodality**, extending the same
-next-token machinery beyond text to images, audio, and more; and **agentic
-tool use**, where the model's output drives actions in the world, not just
-more text. Each of these is a direct extension of something in this
-tutorial's walkthrough, not an unrelated new idea.
+next-token machinery beyond text to images, audio, and more; and
+increasingly **autonomous, multi-step tool use** — agents that plan and
+execute a chain of actions with less human intervention at each step, not
+just a single tool call and response. Each of these is a direct extension
+of something in this tutorial's walkthrough, not an unrelated new idea.
 
 ## Where to Go Next
 

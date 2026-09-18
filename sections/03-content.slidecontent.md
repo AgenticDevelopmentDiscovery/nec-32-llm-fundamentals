@@ -65,10 +65,8 @@
 - **Feed-forward**: transforms each token's vector independently — same
   small network at every position
 - **Residual connection**: adds each block's input back to its output —
-  keeps a straight path through the whole stack
-- **Normalization**: keeps the numbers stable, layer after layer
-- Without both: a stack more than a handful of layers deep stops being
-  buildable at all
+  without it, a stack this deep stops being buildable at all
+- **Normalization**: keeps the numbers stable
 
 ![Where we are: the second block inside the ×N stack.](figures/decoder-only-hl-feedforward.svg){#fig:sc-hl-feedforward width=92%}
 
@@ -112,7 +110,8 @@ Next-token distribution after 'tired' (top 5 of 50257):
 ```
 
 - No single "answer" — a `(1, 10, 50257)` tensor of odds
-- Generation just samples one
+- Generation just samples one — temperature controls how sharply that
+  sample favors the top of this distribution
 
 ## Demo: Attention, Visualized
 

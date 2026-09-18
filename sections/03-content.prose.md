@@ -30,7 +30,11 @@ this variant is what scaled to today's LLMs.
 
 ## Tokens and Embeddings
 
-Before the first layer, every token id is looked up in an **embedding
+What follows traces one token through the stack, stage by stage, starting
+with what happens before it ever reaches the first layer. The collection of
+words is first turned into **tokens** — chunks that are often smaller than
+a whole word, so a common word may be a single token while a rarer one
+splits into several. Next, every token id is looked up in an **embedding
 table** and turned into a vector — a list of numbers that starts out
 arbitrary and comes to encode something about the token's meaning as
 training proceeds. From here on, everything the model does happens to these
@@ -89,9 +93,10 @@ A decoder-only transformer is this block — pictured whole in Figure 4 —
 repeated N times (GPT-2 small, used in the demo below, stacks N=12 of them),
 each layer building a more abstract representation of the sequence than the
 last. After the final layer, one **final layer norm** — the only norm that
-isn't repeated per layer — stabilizes the output, and one more projection
-maps each position's vector onto the size of the vocabulary, turning it into
-a probability distribution over what token comes next: not a single answer,
+isn't repeated per layer — stabilizes the output, and one more projection —
+a **linear layer**, mapping each position's vector onto the size of the
+vocabulary, followed by a **softmax** — turns those scores into a
+probability distribution over what token comes next: not a single answer,
 but odds across the entire vocabulary. Sampling from that distribution is
 what produces the next token.
 
@@ -127,7 +132,9 @@ Next-token distribution after 'tired' (top 5 of 50257):
 ```
 
 No single "answer" — a `(1, 10, 50257)` tensor of odds, and generation just
-samples one. The self-attention weights are just as inspectable as the
+samples one; temperature is exactly what controls how sharply that sample
+favors the top of this distribution versus the long tail. The self-attention
+weights are just as inspectable as the
 output: Figure 5 captures layer 5, head 4 of this same run, the head where
 "it" attends most strongly to "cat" — the same query/key/value mechanism
 from Figure 3, captured on an actual model instead of asserted.

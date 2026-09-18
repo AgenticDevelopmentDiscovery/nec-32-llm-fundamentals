@@ -80,12 +80,22 @@ understanding pays off most.
   sampling) that used to each have their own slide. `prose.md` is
   untouched — this consolidation is presentation-only; the document keeps
   its fuller 3-subsection treatment.
-- Wordsmithed the levers bullet through several passes (2026-09-18): "stop
-  being folklore" → "stop being guesswork" → final: "these levers make
-  sense instead of feeling arbitrary." The primary author's stated intent:
-  once you understand the next-token-predictor mechanism, the important
-  parts are more clearly understood — not just "no longer guesswork," but
-  positively clear.
+- Wordsmithed a `slidecontent.md` levers bullet through several passes
+  (2026-09-18): "stop being folklore" → "stop being guesswork" → "these
+  levers make sense instead of feeling arbitrary." The primary author's
+  stated intent: once you understand the next-token-predictor mechanism,
+  the important parts are more clearly understood — not just "no longer
+  guesswork," but positively clear. **Scope correction (2026-09-18, later
+  the same day, caught by round 3's pedagogy review):** this was a
+  `slidecontent.md`-only edit and was itself later superseded by the 5→2
+  slide consolidation below, which cut the wordsmithed bullet entirely —
+  none of "folklore," "guesswork," or "feeling arbitrary" survive in the
+  current slide. It never touched `prose.md`, which still reads "stop
+  being folklore and start being consequences you can reason about" in
+  its own, independently-written sentence — never flagged by the primary
+  author, and not in scope of this edit. Recorded here explicitly because
+  the entry above, without this note, reads as an unfulfilled promise to
+  the next reader (and did, to a reviewer, in round 3).
 
 ## Open questions
 

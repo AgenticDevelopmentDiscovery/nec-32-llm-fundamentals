@@ -15,7 +15,8 @@
 - **Long-context** — token budgets pushing from thousands to millions
 - **Mixture-of-experts** — only a fraction of parameters active per token
 - **Multimodality** — same next-token machinery, beyond text
-- **Agentic tool use** — model output drives actions, not just more text
+- **Autonomous, multi-step tool use** — agents chaining actions with less
+  human intervention per step
 - Each of these extends something you just saw — not a new idea
 
 ## Where to Go Next

@@ -5,12 +5,12 @@
 An agentic system, at bottom, is an LLM plus the ability to take actions —
 call a tool, run code, read back the result — with the LLM as the
 orchestrator deciding what happens next at every step. Every capability and
-every failure mode your agent exhibits traces back to this mechanism. Once
-you know an LLM is a next-token predictor operating over a fixed window of
-tokens, with weights that don't change while it's running,
-the levers you actually have — context engineering, grounding, prompt
-design, sampling — stop being folklore and start being consequences you can
-reason about. That's the case for sitting through the architecture
+every failure mode your agent exhibits traces back to what that LLM
+actually is: a next-token predictor operating over a fixed window of
+tokens, with weights that don't change while it's running. Once you know
+that, the levers you actually have — context engineering, grounding,
+prompt design, sampling — stop being folklore and start being consequences
+you can reason about. That's the case for sitting through the architecture
 walkthrough that follows.
 
 ## What Goes Wrong Without It
