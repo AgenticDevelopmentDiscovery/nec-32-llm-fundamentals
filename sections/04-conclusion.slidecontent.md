@@ -17,6 +17,7 @@
 - **Multimodality** — same next-token machinery, beyond text
 - **Autonomous, multi-step tool use** — agents chaining actions with less
   human intervention per step
+- **Type-safe AI** — outputs constrained to schemas, so code can trust them
 - Each of these extends something you just saw — not a new idea
 
 ## Where to Go Next
@@ -24,4 +25,8 @@
 - **How a model becomes a helpful assistant:** the InstructGPT / RLHF paper
 - **In-context learning at scale:** "Language Models are Few-Shot
   Learners" (GPT-3 paper)
+- **See how text becomes tokens:** OpenAI's
+  [Tokenizer](https://platform.openai.com/tokenizer)
+- **See it run, interactively:** [Transformer
+  Explainer](https://poloclub.github.io/transformer-explainer/)
 - **Hands-on, from scratch, in code:** Andrej Karpathy, "Let's build GPT"

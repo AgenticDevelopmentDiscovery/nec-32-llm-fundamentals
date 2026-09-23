@@ -67,7 +67,7 @@
   <!-- ×N bracket around the repeated block — note: no norm here, the block
        exits right after the residual add. Only one norm per repeat (after
        self-attention); the final norm below is outside the loop. -->
-  <rect x="66" y="216" width="290" height="374" rx="10" fill="none" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4 3"/>
+  <rect x="66" y="216" width="290" height="333" rx="10" fill="none" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4 3"/>
   <circle cx="66" cy="216" r="15" class="stacklabel"/>
   <text x="66" y="221" class="lbl-sm" font-weight="600">&#215;N</text>
 

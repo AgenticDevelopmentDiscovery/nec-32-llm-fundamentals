@@ -47,6 +47,13 @@ required material.
   (confirmed 2026-09-17) since it's already cited on its own slide in
   `03-content`; keeps only the RLHF paper, the GPT-3 paper, and the Karpathy
   resource, which aren't introduced elsewhere.
+- "Where to Go Next" adds the Transformer Explainer (2026-09-23, per the
+  primary author) — interactive, in-browser view of the same decoder-only
+  stack; sits between the papers and Karpathy's code walkthrough. First
+  inline URL in the tutorial.
+- "Where to Go Next" adds OpenAI's Tokenizer (2026-09-23, per the primary
+  author) — shows how text is split into tokens; placed just before the
+  Transformer Explainer, following the stack's own order (tokens first).
 - Added `04-conclusion.slidecontent.md` (2026-09-17, see `topic.md` Decisions
   for the framework split). `prose.md` is unchanged — it was never distorted
   by the old shared-source slide constraint, and a document reader tolerates

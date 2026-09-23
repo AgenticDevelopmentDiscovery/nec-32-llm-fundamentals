@@ -21,16 +21,23 @@ capability, for reasons still not fully explained; **long-context** methods
 that push the token budget from thousands of tokens to millions;
 **mixture-of-experts**, where only a fraction of the model's parameters
 activate for a given token; **multimodality**, extending the same
-next-token machinery beyond text to images, audio, and more; and
+next-token machinery beyond text to images, audio, and more;
 increasingly **autonomous, multi-step tool use** — agents that plan and
 execute a chain of actions with less human intervention at each step, not
-just a single tool call and response. Each of these is a direct extension
+just a single tool call and response; and **type-safe AI**, where the
+sampling step is constrained so that only tokens consistent with a schema
+or type can be chosen, letting the surrounding code trust the output's
+shape instead of parsing it and hoping. Each of these is a direct extension
 of something in this tutorial's walkthrough, not an unrelated new idea.
 
 ## Where to Go Next
 
 For how a model like this becomes a helpful assistant rather than a raw
 next-token predictor: the InstructGPT / RLHF paper. For in-context learning
-at scale: "Language Models are Few-Shot Learners," the GPT-3 paper. And for a
+at scale: "Language Models are Few-Shot Learners," the GPT-3 paper. To see how your own text is split into tokens: OpenAI's
+[Tokenizer](https://platform.openai.com/tokenizer). To watch
+the stack from this tutorial run on real text, interactively and in the
+browser: the [Transformer
+Explainer](https://poloclub.github.io/transformer-explainer/). And for a
 from-scratch, hands-on walkthrough of everything covered here, in code:
 Andrej Karpathy's "Let's build GPT."
